@@ -1,0 +1,1 @@
+export const {MONGO_URI, USE_DATABASE} = process.env;
