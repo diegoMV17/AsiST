@@ -11,3 +11,8 @@ export interface UpdateUserDto {
   contraseña?: string;
   rol?: 'conductor' | 'pasajero' | 'ambos' | 'admin';
 }
+
+export interface loginUserDto {
+  correo: string;
+  contraseña: string;
+}
