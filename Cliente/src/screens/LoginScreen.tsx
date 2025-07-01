@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import styles from '../styles/styles';
 import { isValidDomainEmail, validateLogin } from '../authentication/LoginAuth';
-import { loginUser } from '../connection/AdminServerConnection';
+import { loginUser } from '../connection/UserServerConnection';
 
 export default function LoginScreen({ navigation }: any) {
   const [email, setEmail] = useState('');
