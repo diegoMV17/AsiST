@@ -1,12 +1,22 @@
 import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import styles from '../styles/styles';
 
-const Home = () => {
+const HomeScreen = ({ navigation }: any) => {
   return (
-    <div>
-      <h1>Bienvenido a AsiST</h1>
-      <p>Esta es la página principal de tu aplicación.</p>
-    </div>
+    <View style={styles.container}>
+      <Text style={styles.title}>Bienvenido a AsiST</Text>
+      <Text style={styles.normalText}>
+        Tu app de movilidad universitaria. Ingresa para comenzar a usar todas las funciones.
+      </Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Login')}
+      >
+        <Text style={styles.buttonText}>Ir al Login</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
-export default Home;
+export default HomeScreen;
