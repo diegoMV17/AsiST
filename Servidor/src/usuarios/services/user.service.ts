@@ -16,6 +16,10 @@ export class UserService {
     return this.userRepository.getAllUsers();
   }
 
+  async getUserById(id: string): Promise<CreateUsertDto | null> {
+    return this.userRepository.getById(id);
+  }
+
   async updateUser(id: string, data: UpdateUserDto): Promise<CreateUsertDto | null> {
     return this.userRepository.updateUser(id, data);
   }
@@ -27,4 +31,14 @@ export class UserService {
   async findUserByEmail(email: string): Promise<CreateUsertDto | null> {
     return this.userRepository.findUserByEmail(email);
   }
+  async addVehicleToUser(userId: string, vehicleId: string): Promise<CreateUsertDto | null> {
+    return this.userRepository.addVehicleToUser(userId, vehicleId);
+  }
+  async removeVehicleFromUser(userId: string, vehicleId: string): Promise<CreateUsertDto | null> {
+    return this.userRepository.removeVehicleFromUser(userId, vehicleId);
+  }
+  async getUserVehicles(userId: string): Promise<CreateUsertDto | null> {
+    return this.userRepository.getUserVehicles(userId);
+  }
+  
 }
