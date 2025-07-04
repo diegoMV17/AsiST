@@ -17,6 +17,15 @@ userRoutes.get('/', async (req: Request, res: Response) => {
   }
 });
 
+userRoutes.get('/:id', async (req: Request, res: Response) => {
+  try {
+    const users = await userService.getUserById(req.params.id);
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching users', error });
+  }
+});
+
 userRoutes.post('/', async (req: Request, res: Response) => {
   try {
     const user = await userService.createUser(req.body);
@@ -53,6 +62,33 @@ userRoutes.delete('/:id', async (req: Request, res: Response) => {
     res.status(204).send();
   } catch (error) {
     res.status(500).json({ message: 'Error deleting user', error });
+  }
+});
+userRoutes.post('/:userId/vehicles/:vehicleId', async (req: Request, res: Response) => {
+  try {
+    const { userId, vehicleId } = req.params;
+    const updatedUser = await userService.addVehicleToUser(userId, vehicleId);
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: 'Error adding vehicle to user', error });
+  }
+});
+userRoutes.delete('/:userId/vehicles/:vehicleId', async (req: Request, res: Response) => {
+  try {
+    const { userId, vehicleId } = req.params;
+    const updatedUser = await userService.removeVehicleFromUser(userId, vehicleId);
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: 'Error removing vehicle from user', error });
+  }
+});
+userRoutes.get('/:userId/vehicles', async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const userVehicles = await userService.getUserVehicles(userId);
+    res.status(200).json(userVehicles);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching user vehicles', error });
   }
 });
 
