@@ -11,7 +11,7 @@ const AdminHomeScreen = ({ route }: any) => {
       <View style={styles.formBox}>
         <Text style={styles.title}>Panel de Administración</Text>
         <Text style={styles.normalText}>
-          ¡Bienvenido, {nombre}! Has ingresado correctamente como administrador.
+          ¡Bienvenido, {nombre}! Has ingresado correctamente como administrador. Diego 
         </Text>
       </View>
     </View>

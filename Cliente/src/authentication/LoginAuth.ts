@@ -3,5 +3,5 @@ export function validateLogin(password: string): string | null {
   return null;
 }
 export function isValidDomainEmail(email: string): boolean {
-  return email.endsWith('@usantoto.edu.co') || email.endsWith('@ustatunjaedu.co');
+  return email.endsWith('@usantoto.edu.co') || email.endsWith('@ustatunja.edu.co');
 }
