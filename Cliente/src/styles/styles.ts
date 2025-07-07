@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: colors.background,
-        justifyContent: 'center', 
-        alignItems: 'center',     
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
     formBox: {
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         elevation: 6,
         alignItems: 'center',
     },
-    
+
     title: {
         fontSize: 24,
         marginBottom: 16,
@@ -95,6 +95,57 @@ const styles = StyleSheet.create({
         color: colors.error,
         fontSize: 14,
         marginBottom: 8,
+    },
+
+    roleSelectorContainer: {
+        width: '100%',
+        marginBottom: 12,
+    },
+
+    roleSelectorLabel: {
+        marginBottom: 4,
+        color: colors.textPrimary,
+        fontWeight: '600',
+    },
+
+    roleSelectorRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+
+    roleSelectorButton: {
+        flex: 1,
+        marginHorizontal: 2,
+        borderRadius: 6,
+        paddingVertical: 8,
+        alignItems: 'center',
+        backgroundColor: '#eee',
+    },
+
+    roleSelectorButtonActive: {
+        backgroundColor: colors.accent,
+    },
+
+    roleSelectorButtonText: {
+        color: '#333',
+        fontWeight: '600',
+    },
+
+    roleSelectorButtonTextActive: {
+        color: '#fff',
+    },
+
+    dateInput: {
+        borderWidth: 1,
+        borderColor: colors.inputBorder,
+        marginBottom: 12,
+        padding: 12,
+        borderRadius: 8,
+        fontSize: 16,
+        color: colors.textPrimary,
+        backgroundColor: '#FAFAFA',
+        width: '100%',
+        justifyContent: 'center',
     },
 });
 

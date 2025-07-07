@@ -25,7 +25,11 @@ export default function LoginScreen({ navigation }: any) {
       if (data) {
         if (data.rol === 'admin') {
           navigation.navigate('HomeAdmin', { nombre: data.nombre });
-        } else {
+        } else if (data.rol === 'conductor') {
+          navigation.navigate('HomeDriver', { nombre: data.nombre });
+        } else if (data.rol === 'pasajero') {
+          navigation.navigate('HomePassenger', { nombre: data.nombre });
+        } else if (data.rol === 'ambos') {
           navigation.navigate('Home', { nombre: data.nombre });
         }
       } else {
