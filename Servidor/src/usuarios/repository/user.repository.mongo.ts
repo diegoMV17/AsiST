@@ -1,7 +1,8 @@
 import { UserRepository } from "../interfaces/user.repository";
 import { UserModel } from "../models/user.model";
 import { CreateUsertDto, loginUserDto, UpdateUserDto } from "../interfaces/user.dto";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
+import { generateToken } from "../../services/auth.service";
 
 export class UserRepositoryMongo implements UserRepository {
 
@@ -21,7 +22,20 @@ export class UserRepositoryMongo implements UserRepository {
     if (!isPasswordValid) {
       throw new Error("Invalid credentials");
     }
-    return user;
+    
+    // AQUÍ SE USA EL generateToken
+    const token = generateToken(user);
+    
+    // Retornar el usuario con el token
+    return {
+      user: {
+        id: user._id.toString(),
+        correo: user.correo,
+        rol: user.rol || 'user', // Valor por defecto si rol es undefined
+        // No retornar la contraseña
+      },
+      token
+    };
   }
 
   async getAllUsers(): Promise<CreateUsertDto[]> {
