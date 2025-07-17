@@ -1,40 +1,14 @@
-import  {Router, Request, Response} from 'express';
+import { Router, Request, Response } from 'express';
 import { UserService } from '../services/user.service';
 import { UserRepositoryMongo } from '../repository/user.repository.mongo';
+import { authMiddleware, roleMiddleware, ownershipMiddleware } from '../../middlewares/auth.middleware';
 
 const userRoutes = Router();
 
 const userRepository = new UserRepositoryMongo();
-
 const userService = new UserService(userRepository);
 
-userRoutes.get('/', async (req: Request, res: Response) => {
-  try {
-    const users = await userService.getAllUsers();
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching users', error });
-  }
-});
-
-userRoutes.get('/:id', async (req: Request, res: Response) => {
-  try {
-    const users = await userService.getUserById(req.params.id);
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching users', error });
-  }
-});
-
-userRoutes.post('/', async (req: Request, res: Response) => {
-  try {
-    const user = await userService.createUser(req.body);
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(500).json({ message: 'Error creating user', error });
-  }
-});
-
+// Rutas públicas (no requieren autenticación)
 userRoutes.post('/login', async (req: Request, res: Response) => {
   try {
     const user = await userService.loginUser(req.body);
@@ -44,7 +18,48 @@ userRoutes.post('/login', async (req: Request, res: Response) => {
   }
 });
 
-userRoutes.put('/:id', async (req: Request, res: Response): Promise<void> => {
+userRoutes.post('/register', async (req: Request, res: Response) => {
+  try {
+    const user = await userService.createUser(req.body);
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating user', error });
+  }
+});
+
+// Middleware de autenticación para todas las rutas siguientes
+userRoutes.use(authMiddleware);
+
+// Rutas que requieren autenticación
+// Solo admins pueden ver todos los usuarios
+userRoutes.get('/', roleMiddleware(['admin']), async (req: Request, res: Response) => {
+  try {
+    console.log('Getting all users...');
+    const users = await userService.getAllUsers();
+    console.log('Users found:', users);
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error in GET /users:', error);
+    res.status(500).json({ 
+      message: 'Error fetching users', 
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    });
+  }
+});
+
+// Los usuarios pueden ver su propio perfil, los admins pueden ver cualquier perfil
+userRoutes.get('/:id', ownershipMiddleware, async (req: Request, res: Response) => {
+  try {
+    const user = await userService.getUserById(req.params.id);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching user', error });
+  }
+});
+
+// Los usuarios pueden actualizar su propio perfil, los admins pueden actualizar cualquier perfil
+userRoutes.put('/:id', ownershipMiddleware, async (req: Request, res: Response): Promise<void> => {
   try {
     const updatedUser = await userService.updateUser(req.params.id, req.body);
     if (!updatedUser) {
@@ -56,7 +71,9 @@ userRoutes.put('/:id', async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: 'Error updating user', error });
   }
 });
-userRoutes.delete('/:id', async (req: Request, res: Response) => {
+
+// Solo admins pueden eliminar usuarios
+userRoutes.delete('/:id', roleMiddleware(['admin']), async (req: Request, res: Response) => {
   try {
     await userService.deleteUser(req.params.id);
     res.status(204).send();
@@ -64,7 +81,9 @@ userRoutes.delete('/:id', async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error deleting user', error });
   }
 });
-userRoutes.post('/:userId/vehicles/:vehicleId', async (req: Request, res: Response) => {
+
+// Rutas de vehículos - Los usuarios pueden gestionar sus propios vehículos
+userRoutes.post('/:userId/vehicles/:vehicleId', ownershipMiddleware, async (req: Request, res: Response) => {
   try {
     const { userId, vehicleId } = req.params;
     const updatedUser = await userService.addVehicleToUser(userId, vehicleId);
@@ -73,7 +92,8 @@ userRoutes.post('/:userId/vehicles/:vehicleId', async (req: Request, res: Respon
     res.status(500).json({ message: 'Error adding vehicle to user', error });
   }
 });
-userRoutes.delete('/:userId/vehicles/:vehicleId', async (req: Request, res: Response) => {
+
+userRoutes.delete('/:userId/vehicles/:vehicleId', ownershipMiddleware, async (req: Request, res: Response) => {
   try {
     const { userId, vehicleId } = req.params;
     const updatedUser = await userService.removeVehicleFromUser(userId, vehicleId);
@@ -82,7 +102,8 @@ userRoutes.delete('/:userId/vehicles/:vehicleId', async (req: Request, res: Resp
     res.status(500).json({ message: 'Error removing vehicle from user', error });
   }
 });
-userRoutes.get('/:userId/vehicles', async (req: Request, res: Response) => {
+
+userRoutes.get('/:userId/vehicles', ownershipMiddleware, async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const userVehicles = await userService.getUserVehicles(userId);

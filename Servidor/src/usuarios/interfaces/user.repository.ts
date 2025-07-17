@@ -1,8 +1,8 @@
-import { CreateUsertDto, loginUserDto, UpdateUserDto } from './user.dto';
+import { CreateUsertDto, LoginResponse, loginUserDto, UpdateUserDto } from './user.dto';
 
 export interface UserRepository {
   createUser: (data: CreateUsertDto) => Promise<CreateUsertDto>;
-  loginUser: (data: loginUserDto) => Promise<CreateUsertDto>;
+  loginUser: (data: loginUserDto) => Promise<LoginResponse>;
   getAllUsers: () => Promise<CreateUsertDto[]>;
   getById: (id: string) => Promise<CreateUsertDto | null>;
   updateUser: (id: string, data: UpdateUserDto) => Promise<CreateUsertDto | null>;

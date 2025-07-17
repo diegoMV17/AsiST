@@ -1,5 +1,5 @@
 import { UserRepository } from "../interfaces/user.repository";
-import { CreateUsertDto,loginUserDto,UpdateUserDto } from "../interfaces/user.dto";
+import { CreateUsertDto,LoginResponse,loginUserDto,UpdateUserDto } from "../interfaces/user.dto";
 
 export class UserService {
   constructor(private userRepository: UserRepository) {}
@@ -8,13 +8,21 @@ export class UserService {
     return this.userRepository.createUser(data);
   }
 
-  loginUser(data: loginUserDto) {
+  loginUser(data: loginUserDto): Promise<LoginResponse> {
     return this.userRepository.loginUser(data);
   }
 
   async getAllUsers(): Promise<CreateUsertDto[]> {
-    return this.userRepository.getAllUsers();
+  try {
+    console.log('Calling getAllUsers from service');
+    const users = await this.userRepository.getAllUsers();
+    console.log('Users returned from repository:', JSON.stringify(users, null, 2));
+    return users;
+  } catch (error) {
+    console.error('Error in getAllUsers service:', error);
+    throw error;
   }
+}
 
   async getUserById(id: string): Promise<CreateUsertDto | null> {
     return this.userRepository.getById(id);

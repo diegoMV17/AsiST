@@ -7,7 +7,7 @@ export interface CreateUsertDto {
   ciudad: string;
   correo: string;
   contraseña: string;
-  rol?: 'conductor' | 'pasajero' | 'ambos' | 'admin';
+  rol: 'conductor' | 'pasajero' | 'ambos' | 'admin';
   vehicles?: string[];
 }
 
@@ -27,4 +27,12 @@ export interface UpdateUserDto {
 export interface loginUserDto {
   correo: string;
   contraseña: string;
+}
+export interface LoginResponse {
+  user: {
+    id: string;
+    correo: string;
+    rol: string;
+  };
+  token: string;
 }
