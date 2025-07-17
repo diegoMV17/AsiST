@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import styles from '../styles/styles';
-import { isValidDomainEmail, validateLogin } from '../authentication/LoginAuth';
-import { loginUser } from '../connection/UserServerConnection';
+import styles from '../../styles/styles';
+import { isValidDomainEmail, validateLogin } from '../../authentication/LoginAuth';
+import { loginUser } from '../../connection/UserServerConnection';
 
 export default function LoginScreen({ navigation }: any) {
   const [email, setEmail] = useState('');
@@ -24,7 +24,7 @@ export default function LoginScreen({ navigation }: any) {
       const data = await loginUser(email, password);
       if (data) {
         if (data.rol === 'admin') {
-          navigation.navigate('HomeAdmin', { nombre: data.nombre });
+          navigation.replace('AdminTabs', { nombre: data.nombre });
         } else if (data.rol === 'conductor') {
           navigation.navigate('HomeDriver', { nombre: data.nombre });
         } else if (data.rol === 'pasajero') {

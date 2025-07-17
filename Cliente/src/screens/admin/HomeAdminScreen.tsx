@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import styles from '../styles/styles';
+import styles from '../../styles/styles';
 
 type HomeAdminScreenProps = {
   route: { params?: { nombre?: string } };

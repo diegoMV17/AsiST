@@ -7,34 +7,14 @@ import {
   StatusBar,
   ScrollView,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation, useRoute, NavigationProp } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import styles from "../styles/styles";
+import styles from "../../styles/styles";
 
 const HomeDriverScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
   const route = useRoute();
   const { nombre = "Conductor" } = (route.params || {}) as { nombre?: string };
-
-  const handleLogout = async () => {
-    Alert.alert("Cerrar sesión", "¿Seguro que deseas salir?", [
-      {
-        text: "Cancelar",
-        style: "cancel",
-      },
-      {
-        text: "Salir",
-        onPress: async () => {
-          await AsyncStorage.removeItem("usuario");
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Login" }],
-          });
-        },
-      },
-    ]);
-  };
 
   const goToHistorial = () => {
     Alert.alert("Historial", "Aquí iría el historial del conductor.");
@@ -77,14 +57,7 @@ const HomeDriverScreen = () => {
           <Text >Historial de Viajes</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[, { backgroundColor: "#dc2626" }]}
-          onPress={handleLogout}
-        >
-          <Icon name="logout" size={24} color="#fff" />
-          <Text >Cerrar Sesión</Text>
-        </TouchableOpacity>
-      </ScrollView>
+        </ScrollView>
     </View>
   );
 };

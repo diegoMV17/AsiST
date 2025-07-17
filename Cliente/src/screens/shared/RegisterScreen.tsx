@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import styles from '../styles/styles';
-import { isValidDomainEmail, validateLogin } from '../authentication/LoginAuth';
-import { registerUser } from '../connection/UserServerConnection';
+import styles from '../../styles/styles';
+import { isValidDomainEmail, validateLogin } from '../../authentication/LoginAuth';
+import { registerUser } from '../../connection/UserServerConnection';
 
 export default function RegisterScreen({ navigation }: any) {
   const [nombre, setNombre] = useState('');

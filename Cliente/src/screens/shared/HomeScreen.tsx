@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import styles from "../styles/styles";
+import styles from "../../styles/styles";
 
 const HomeScreen = ({ navigation }: any) => {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView >
       <Text style={styles.title}>Bienvenido a AisteU</Text>
 
       <Text style={styles.normalText}>
@@ -63,7 +63,7 @@ const HomeScreen = ({ navigation }: any) => {
           { marginTop: 30, textAlign: "center", fontSize: 12 },
         ]}
       >
-        © {new Date().getFullYear()} Universidad Santo Tomás - AisteU
+        © {new Date().getFullYear()} Universidad Santo Tomás - AsiST
       </Text>
     </ScrollView>
   );

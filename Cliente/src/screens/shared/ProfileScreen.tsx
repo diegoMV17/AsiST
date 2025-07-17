@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from '../styles/styles';
-import { updateUser } from '../connection/UserServerConnection';
+import styles from '../../styles/styles';
+import { updateUser } from '../../connection/UserServerConnection';
 
 export default function ProfileScreen({ navigation }: any) {
   const [user, setUser] = useState<any>(null);
@@ -12,43 +11,6 @@ export default function ProfileScreen({ navigation }: any) {
   const [ciudad, setCiudad] = useState('');
   const [password, setPassword] = useState('');
   const [rol, setRol] = useState('');
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const data = await AsyncStorage.getItem('usuario');
-      if (data) {
-        const parsed = JSON.parse(data);
-        setUser(parsed);
-        setNombre(parsed.nombre);
-        setTelefono(parsed.telefono);
-        setCiudad(parsed.ciudad);
-        setRol(parsed.rol);
-      }
-    };
-    fetchUser();
-  }, []);
-
-  const handleSave = async () => {
-    try {
-      await updateUser(user.id, {
-        nombre,
-        telefono,
-        ciudad,
-        ...(password && { password }), // Solo si cambia la contraseña
-      });
-      const updatedUser = { ...user, nombre, telefono, ciudad };
-      await AsyncStorage.setItem('usuario', JSON.stringify(updatedUser));
-      Alert.alert('✅ Actualizado', 'Tus datos fueron actualizados');
-      setEditing(false);
-    } catch (err) {
-      Alert.alert('❌ Error', 'No se pudieron guardar los cambios');
-    }
-  };
-
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem('usuario');
-    navigation.replace('Login');
-  };
 
   if (!user) {
     return (
@@ -106,14 +68,7 @@ export default function ProfileScreen({ navigation }: any) {
           </>
         )}
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={editing ? handleSave : () => setEditing(true)}
-        >
-          <Text style={styles.buttonText}>
-            {editing ? 'Guardar cambios' : 'Editar datos'}
-          </Text>
-        </TouchableOpacity>
+      
 
         {editing && (
           <TouchableOpacity
@@ -123,13 +78,6 @@ export default function ProfileScreen({ navigation }: any) {
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
         )}
-
-        <TouchableOpacity
-          style={[styles.button, { backgroundColor: '#e11d48', marginTop: 20 }]}
-          onPress={handleLogout}
-        >
-          <Text style={styles.buttonText}>Cerrar sesión</Text>
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );
