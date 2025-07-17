@@ -34,17 +34,10 @@ userRoutes.use(authMiddleware);
 // Solo admins pueden ver todos los usuarios
 userRoutes.get('/', roleMiddleware(['admin']), async (req: Request, res: Response) => {
   try {
-    console.log('Getting all users...');
     const users = await userService.getAllUsers();
-    console.log('Users found:', users);
     res.status(200).json(users);
   } catch (error) {
-    console.error('Error in GET /users:', error);
-    res.status(500).json({ 
-      message: 'Error fetching users', 
-      error: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined
-    });
+    res.status(500).json({ message: 'Error fetching users', error });
   }
 });
 
