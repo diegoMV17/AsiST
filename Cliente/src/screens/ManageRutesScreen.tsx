@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
 import styles from '../styles/styles';
-import { getAllRutas, cancelRuta } from '../connection/UserServerConnection';
+import { getAllRutas, cancelRuta } from '../api/UserApi';
 
 type Ruta = {
   id: string;

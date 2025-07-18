@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import styles from '../styles/styles';
-import { getReportes } from '../connection/UserServerConnection';
+import styles from '../../styles/styles';
+import { getReportes } from '../../api/UserApi';
 
 export default function ReportesScreen() {
   const [reportes, setReportes] = useState<{

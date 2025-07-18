@@ -6,15 +6,26 @@ const API_BASE = Constants.expoConfig?.extra?.PUBLIC_URL_API;
  * Iniciar sesión de usuario
  */
 export async function loginUser(correo: string, contraseña: string) {
-  const response = await fetch(`${API_BASE}/api/users/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ correo, contraseña }),
-  });
-  if (!response.ok) {
-    throw new Error('Error al iniciar sesión');
+  try {
+    const response = await fetch(`${API_BASE}/api/users/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ correo, contraseña }),
+    });
+
+    const data = await response.json();
+    console.log('Respuesta del servidor:', data);
+
+    if (!response.ok) {
+      const mensaje = data?.mensaje || 'Error al iniciar sesión';
+      throw new Error(mensaje);
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error en loginUser:', error);
+    throw error;
   }
-  return response.json();
 }
 
 /**
@@ -52,6 +63,32 @@ export async function registerUser(
   return response.json();
 }
 
+
+
+/**
+ * Obtener datos del usuario
+ */
+
+export async function getUserData(userId: string, token: string) {
+   try {
+    const response = await fetch(`${API_BASE}/api/users/${userId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) throw new Error('Error al obtener usuario');
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('GetID error:', error);
+    return null;
+  }
+}
+
 /**
  * Actualizar datos de usuario
  */
@@ -73,6 +110,27 @@ export async function updateUser(
     throw new Error('Error al actualizar usuario');
   }
   return response.json();
+}
+
+/**
+ * Relacionar vehículo con usuario
+ */
+
+export async function relateVehicleToUser(userId: string, vehicleId: string, token: string) {
+  const res = await fetch(`${API_BASE}/api/users/${userId}/vehicles/${vehicleId}`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || 'Error al asociar vehículo al usuario');
+  }
+
+  return res.json();
 }
 
 /**

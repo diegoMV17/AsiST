@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import styles from '../styles/styles';
-import { createRoute } from '../connection/UserServerConnection';
+import { createRoute } from '../api/UserApi';
 
 export default function CrearRutaScreen({ route, navigation }: any) {
   const { userId } = route.params;
