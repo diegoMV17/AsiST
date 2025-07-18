@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert, ActivityIndicator, StyleSheet } from 'react-native';
 import styles from '../styles/styles';
-import { getUserRoutes, deleteRoute } from '../connection/UserServerConnection';
+import { getUserRoutes, deleteRoute } from '../api/UserApi';
 
 export default function MisRutasScreen({ route, navigation }: any) {
   const { userId } = route.params;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import styles from '../../styles/styles';
-import { isValidDomainEmail, validateLogin } from '../../authentication/LoginAuth';
-import { loginUser } from '../../connection/UserServerConnection';
+import { guardarToken } from '../../auth/authService';
+import { loginUser } from '../../api/UserApi';
+import { isValidDomainEmail, validateLogin } from '../../context/AuthContext';
 
 export default function LoginScreen({ navigation }: any) {
   const [email, setEmail] = useState('');
@@ -22,14 +23,20 @@ export default function LoginScreen({ navigation }: any) {
     }
     try {
       const data = await loginUser(email, password);
-      if (data) {
-        if (data.rol === 'admin') {
+      console.log('Login response del nuevo:', data);
+      await guardarToken(data.token);
+      if (!data?.user?.rol) {
+        setError('Rol no definido en la respuesta');
+        return;
+      }
+      if (data.user && data.token) {
+        if (data.user.rol === 'admin') {
           navigation.replace('AdminTabs', { nombre: data.nombre });
-        } else if (data.rol === 'conductor') {
-          navigation.navigate('HomeDriver', { nombre: data.nombre });
-        } else if (data.rol === 'pasajero') {
-          navigation.navigate('HomePassenger', { nombre: data.nombre });
-        } else if (data.rol === 'ambos') {
+        } else if (data.user.rol === 'conductor') {
+          navigation.navigate('DriverTabs', { nombre: data.nombre });
+        } else if (data.user.rol === 'pasajero') {
+          navigation.navigate('PassengerTabs', { nombre: data.nombre });
+        } else if (data.user.rol === 'ambos') {
           navigation.navigate('Home', { nombre: data.nombre });
         }
       } else {

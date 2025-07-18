@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
 import styles from '../styles/styles';
-import { getAllUsers, deleteUser, changeUserRole } from '../connection/UserServerConnection';
+import { getAllUsers, deleteUser, changeUserRole } from '../api/UserApi';
 
 type User = {
   id: string;

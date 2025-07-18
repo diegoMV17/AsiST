@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import styles from '../styles/styles';
-import { getUserHistory } from '../connection/UserServerConnection';
+import { getUserHistory } from '../api/UserApi';
 
 export default function HistoryScreen({ route }: any) {
   const [history, setHistory] = useState<any[]>([]);

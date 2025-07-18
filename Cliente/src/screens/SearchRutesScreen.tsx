@@ -10,7 +10,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import styles from '../styles/styles';
-import { searchRoutes, joinRoute } from '../connection/UserServerConnection';
+import { searchRoutes, joinRoute } from '../api/UserApi';
 
 export default function BuscarRutasScreen({ route }: any) {
   const { userId } = route.params;
