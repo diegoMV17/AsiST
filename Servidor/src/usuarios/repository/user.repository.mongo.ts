@@ -32,6 +32,7 @@ export class UserRepositoryMongo implements UserRepository {
         id: user._id.toString(),
         correo: user.correo,
         rol: user.rol || 'user', // Valor por defecto si rol es undefined
+        vehiculos: user.vehicles || [] // Asegurarse de que vehicles sea un array
         // No retornar la contraseña
       },
       token
@@ -66,6 +67,7 @@ export class UserRepositoryMongo implements UserRepository {
 
   async addVehicleToUser(userId: string, vehicleId: string): Promise<CreateUsertDto | null> {
     const user = await UserModel.findById(userId);
+    
     if (!user) {
       throw new Error("Usuario no encontrado");
     }
