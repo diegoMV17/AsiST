@@ -1,4 +1,3 @@
-import { Link } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 
 const colors = {
@@ -147,6 +146,69 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
     },
+
+    loadingText: {
+        fontSize: 18,
+        color: '#555',
+        textAlign: 'center',
+        marginTop: 20,
+    },
+
+    vehicleItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: '#f9f9f9',
+        padding: 15,
+        borderRadius: 8,
+        marginBottom: 15,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 5,
+        elevation: 3, // Sombra en Android
+    },
+
+    buttonRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '40%', // Ajusta según tus necesidades
+    },
+
+    vehicleCard: {
+        backgroundColor: '#f9f9f9',
+        padding: 16,
+        borderRadius: 10,
+        marginBottom: 12,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        shadowOffset: { width: 0, height: 2 },
+        elevation: 3,
+    },
+
+    vehicleTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 8,
+        color: '#333',
+    },
+
+    vehicleDetails: {
+        fontSize: 14,
+        color: '#555',
+        marginBottom: 4,
+    },
+
+    editButton: {
+        backgroundColor: '#007bff',
+        marginRight: 10,
+    },
+
+    deleteButton: {
+        backgroundColor: '#dc3545',
+    },
+
 });
 
 export default styles;

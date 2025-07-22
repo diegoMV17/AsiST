@@ -1,14 +1,13 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../screens/shared/HomeScreen';
-import LoginScreen from '../screens/shared/LoginScreen';
-import RegisterScreen from '../screens/shared/RegisterScreen';
-import AdminTabs from './AdminTabs';
-import SplashScreen from '../screens/shared/SplashScreen';
-import DriverTabs from './DriverTabs';
-import PassengerTabs from './PassengerTabs';
-/* import DriverTabs from './DriverTabs';
-import PassengerTabs from './PassengerTabs'; */
+import HomeScreen from '../../screens/shared/HomeScreen';
+import LoginScreen from '../../screens/shared/LoginScreen';
+import RegisterScreen from '../../screens/shared/RegisterScreen';
+import AdminTabs from '../tabs/AdminTabs';
+import SplashScreen from '../../screens/shared/SplashScreen';
+import DriverTabs from '../tabs/DriverTabs';
+import PassengerTabs from '../tabs/PassengerTabs';
+
 
 export type RootStackParamList = {
   Splash: undefined;

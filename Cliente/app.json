@@ -8,7 +8,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "extra": {
-      "PUBLIC_URL_API": "http://localhost:8080" 
+      "PUBLIC_URL_API": "http://localhost:8080"
   },
     "splash": {
       "image": "./assets/splash-icon.png",

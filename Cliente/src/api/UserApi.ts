@@ -134,6 +134,48 @@ export async function relateVehicleToUser(userId: string, vehicleId: string, tok
 }
 
 /**
+ * Obtener vehiculos del usuario
+ */
+
+export async function getUserVehicles(userId: string, token: string) {
+  const response = await fetch(`${API_BASE}/api/users/${userId}/vehicles`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Error al obtener vehículos del usuario');
+  }
+
+  return response.json();
+}
+
+/**
+ * Eliminar vehículo del usuario
+ */
+
+export async function removeVehicleFromUser(userId: string, vehicleId: string, token: string) {
+  const response = await fetch(`${API_BASE}/api/users/${userId}/vehicles/${vehicleId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Error al eliminar vehículo del usuario');
+  }
+
+  return response.json();
+}
+
+/**
  * Historial de viajes del usuario
  */
 export async function getUserHistory(userId: string) {
