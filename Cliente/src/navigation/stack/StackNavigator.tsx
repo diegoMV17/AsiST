@@ -7,6 +7,7 @@ import AdminTabs from '../tabs/AdminTabs';
 import SplashScreen from '../../screens/shared/SplashScreen';
 import DriverTabs from '../tabs/DriverTabs';
 import PassengerTabs from '../tabs/PassengerTabs';
+import BothTabs from '../tabs/BothTabs';
 
 
 export type RootStackParamList = {
@@ -18,6 +19,7 @@ export type RootStackParamList = {
   AdminTabs: undefined;
   DriverTabs: undefined;
   PassengerTabs: undefined;
+  BothTabs: undefined; 
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -34,6 +36,7 @@ const StackNavigator = () => {
       <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: true }} />
 
       <Stack.Screen name="AdminTabs" component={AdminTabs} />
+      <Stack.Screen name="BothTabs" component={BothTabs} />
       <Stack.Screen name="DriverTabs" component={DriverTabs} />
       <Stack.Screen name="PassengerTabs" component={PassengerTabs} />
     </Stack.Navigator>
