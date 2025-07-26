@@ -106,41 +106,4 @@ userRoutes.get('/:userId/vehicles', ownershipMiddleware, async (req: Request, re
   }
 });
 
-
-
-// Rutas para el rol ambos - Los usuarios con rol ambos pueden gestionar sus propios vehículos
-
-userRoutes.post('/:userId/vehicles/:vehicleId',roleMiddleware(['ambos']), ownershipMiddleware, async (req: Request, res: Response) => {
-    try {
-      const { userId, vehicleId } = req.params;
-      const updatedUser = await userService.addVehicleToUser(userId, vehicleId);
-      res.status(200).json(updatedUser);
-    } catch (error) {
-      res.status(500).json({ message: 'Error adding vehicle to user', error });
-    }
-  }
-);
-
-userRoutes.delete('/:userId/vehicles/:vehicleId',roleMiddleware(['ambos']), ownershipMiddleware, async (req: Request, res: Response) => {
-    try {
-      const { userId, vehicleId } = req.params;
-      const updatedUser = await userService.removeVehicleFromUser(userId, vehicleId);
-      res.status(200).json(updatedUser);
-    } catch (error) {
-      res.status(500).json({ message: 'Error removing vehicle from user', error });
-    }
-  }
-);
-
-userRoutes.get('/:userId/vehicles',roleMiddleware(['ambos']),ownershipMiddleware, async (req: Request, res: Response) => {
-    try {
-      const { userId } = req.params;
-      const userVehicles = await userService.getUserVehicles(userId);
-      res.status(200).json(userVehicles);
-    } catch (error) {
-      res.status(500).json({ message: 'Error fetching user vehicles', error });
-    }
-  }
-);
-
 export { userRoutes };
