@@ -2,12 +2,14 @@ import { StyleSheet } from 'react-native';
 
 const colors = {
     primary: '#00205B',
-    accent: '#6DC067',
-    background: '#FFFFFF',
-    inputBorder: '#CCCCCC',
-    textPrimary: '#333333',
-    textSecondary: '#999999',
-    error: '#D32F2F',
+    accent: '#4CAF50',
+    background: '#F5F7FA',
+    inputBorder: '#E0E0E0',
+    textPrimary: '#1F2937',
+    textSecondary: '#6B7280',
+    error: '#DC2626',
+    cardBackground: '#FFFFFF',
+    shadow: '#000000',
 };
 
 const styles = StyleSheet.create({
@@ -21,38 +23,40 @@ const styles = StyleSheet.create({
 
     formBox: {
         width: '100%',
-        maxWidth: 520,
-        backgroundColor: '#fff',
-        borderRadius: 12,
-        padding: 28,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.15,
+        maxWidth: 400,
+        backgroundColor: colors.cardBackground,
+        borderRadius: 16,
+        padding: 24,
+        shadowColor: colors.shadow,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
         shadowRadius: 8,
-        elevation: 6,
+        elevation: 4,
         alignItems: 'center',
     },
 
     title: {
-        fontSize: 24,
-        marginBottom: 16,
+        fontSize: 26,
+        marginBottom: 12,
         fontWeight: '700',
         color: colors.primary,
-        textAlign: 'center', // Centra el texto
+        textAlign: 'center',
     },
+
     subtitle: {
         fontSize: 18,
         marginBottom: 8,
-        fontWeight: '600',
+        fontWeight: '500',
         color: colors.textSecondary,
-        textAlign: 'center', // Centra el texto
+        textAlign: 'center',
     },
+
     normalText: {
         fontSize: 16,
         color: colors.textPrimary,
-        marginBottom: 12,
-        fontWeight: '600',
-        textAlign: 'center', // Centra el texto
+        marginBottom: 10,
+        fontWeight: '500',
+        textAlign: 'center',
     },
 
     input: {
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         fontSize: 16,
         color: colors.textPrimary,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#FFFFFF',
         width: '100%',
     },
 
@@ -72,20 +76,24 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 12,
         textDecorationLine: 'underline',
-        textAlign: 'center', // Centra el texto
+        textAlign: 'center',
     },
 
     button: {
-        backgroundColor: colors.accent,
+        backgroundColor: colors.primary,
         paddingVertical: 14,
-        borderRadius: 8,
+        borderRadius: 10,
         alignItems: 'center',
         marginTop: 8,
         minWidth: 180,
+        shadowColor: colors.shadow,
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
     },
 
     buttonText: {
-        color: colors.background,
+        color: '#FFFFFF',
         fontWeight: '600',
         fontSize: 16,
     },
@@ -115,10 +123,10 @@ const styles = StyleSheet.create({
     roleSelectorButton: {
         flex: 1,
         marginHorizontal: 2,
-        borderRadius: 6,
-        paddingVertical: 8,
+        borderRadius: 8,
+        paddingVertical: 10,
         alignItems: 'center',
-        backgroundColor: '#eee',
+        backgroundColor: '#E5E7EB',
     },
 
     roleSelectorButtonActive: {
@@ -126,12 +134,12 @@ const styles = StyleSheet.create({
     },
 
     roleSelectorButtonText: {
-        color: '#333',
+        color: colors.textPrimary,
         fontWeight: '600',
     },
 
     roleSelectorButtonTextActive: {
-        color: '#fff',
+        color: '#FFFFFF',
     },
 
     dateInput: {
@@ -142,14 +150,14 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         fontSize: 16,
         color: colors.textPrimary,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#FFFFFF',
         width: '100%',
         justifyContent: 'center',
     },
 
     loadingText: {
         fontSize: 18,
-        color: '#555',
+        color: colors.textSecondary,
         textAlign: 'center',
         marginTop: 20,
     },
@@ -158,57 +166,56 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#f9f9f9',
+        backgroundColor: colors.cardBackground,
         padding: 15,
         borderRadius: 8,
-        marginBottom: 15,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 5,
-        elevation: 3, // Sombra en Android
+        marginBottom: 12,
+        shadowColor: colors.shadow,
+        shadowOpacity: 0.05,
+        shadowOffset: { width: 0, height: 1 },
+        shadowRadius: 3,
+        elevation: 2,
     },
 
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '40%', // Ajusta según tus necesidades
+        width: '40%',
     },
 
     vehicleCard: {
-        backgroundColor: '#f9f9f9',
+        backgroundColor: colors.cardBackground,
         padding: 16,
         borderRadius: 10,
-        marginBottom: 12,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
+        marginBottom: 10,
+        shadowColor: colors.shadow,
+        shadowOpacity: 0.05,
+        shadowRadius: 4,
         shadowOffset: { width: 0, height: 2 },
-        elevation: 3,
+        elevation: 2,
     },
 
     vehicleTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 8,
-        color: '#333',
+        marginBottom: 6,
+        color: colors.textPrimary,
     },
 
     vehicleDetails: {
         fontSize: 14,
-        color: '#555',
-        marginBottom: 4,
+        color: colors.textSecondary,
+        marginBottom: 2,
     },
 
     editButton: {
-        backgroundColor: '#007bff',
+        backgroundColor: '#3B82F6',
         marginRight: 10,
     },
 
     deleteButton: {
-        backgroundColor: '#dc3545',
+        backgroundColor: '#EF4444',
     },
-
 });
 
 export default styles;
