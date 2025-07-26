@@ -11,7 +11,6 @@ const Stack = createNativeStackNavigator();
 const StackBoth = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: true }}>
-      <Stack.Screen name="HomeBoth" component={HomeBothScreen} options={{ title: 'Inicio' }} />
       <Stack.Screen name="ListarVehiculos" component={ListVehiclesScreen} options={{ title: 'Mis Vehículos' }} />
       <Stack.Screen name="RegistrarVehiculo" component={RegisterVehicleScreen} options={{ title: 'Registrar Vehículo' }} />
       <Stack.Screen name="EditarVehiculo" component={EditVehicleScreen} options={{ title: 'Editar Vehículo' }} />

@@ -299,31 +299,4 @@ export async function changeUserRole(id: string, nuevoRol: string) {
   return res.json();
 }
 
-/**
- * Obtener todas las rutas activas (admin)
- */
-export async function getAllRutas() {
-  const res = await fetch(`${API_BASE}/api/admin/rutas`);
-  if (!res.ok) throw new Error('Error al obtener rutas');
-  return res.json();
-}
 
-/**
- * Cancelar ruta (admin)
- */
-export async function cancelRuta(id: string) {
-  const res = await fetch(`${API_BASE}/api/admin/rutas/${id}/cancel`, {
-    method: 'PUT',
-  });
-  if (!res.ok) throw new Error('Error al cancelar ruta');
-  return res.json();
-}
-
-/**
- * Obtener estadísticas para reportes (admin)
- */
-export async function getReportes() {
-  const res = await fetch(`${API_BASE}/api/admin/reportes`);
-  if (!res.ok) throw new Error('Error al obtener reportes');
-  return res.json();
-}
