@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { CreateUsertDto } from '../interfaces/user.dto';
 
 const userSchema = new Schema<CreateUsertDto>({
@@ -11,7 +11,7 @@ const userSchema = new Schema<CreateUsertDto>({
   correo: { type: String, required: true, unique: true },
   contraseña: { type: String, required: true },
   rol: { type: String, enum: ['conductor', 'pasajero', 'ambos', 'admin'], default: 'pasajero' },
-  vehicles: [{ type: Schema.Types.ObjectId, ref: 'Vehicle' }] 
+  vehicles: [{ type: Schema.Types.ObjectId, ref: 'Vehicle' }]
 }, {
   timestamps: true
 });
