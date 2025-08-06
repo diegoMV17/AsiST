@@ -33,7 +33,6 @@ export interface LoginResponse {
     id: string;
     correo: string;
     rol: string;
-    vehiculos?: string[];
   };
   token: string;
 }
