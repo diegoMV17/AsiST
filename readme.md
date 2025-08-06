@@ -29,15 +29,15 @@
 ##  Instalación y ejecución
 
 # Cliente
-cd cliente
-npm install -g expo-cli
-expo upgrade
-npm install
-npx expo start
+- cd cliente
+- npm install -g expo-cli
+- expo upgrade
+- npm install
+- npx expo start
 # Servidor
-cd servidor
-npm install
-npm run dev 
+- cd servidor
+- npm install
+- npm run dev 
 
 ### 🔗 Clona el repositorio
 
