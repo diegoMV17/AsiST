@@ -31,8 +31,7 @@ export class UserRepositoryMongo implements UserRepository {
       user: {
         id: user._id.toString(),
         correo: user.correo,
-        rol: user.rol || 'user', // Valor por defecto si rol es undefined
-        vehiculos: user.vehicles || [] // Asegurarse de que vehicles sea un array
+        rol: user.rol || 'user', // Valor por defecto si rol es undefined 
         // No retornar la contraseña
       },
       token

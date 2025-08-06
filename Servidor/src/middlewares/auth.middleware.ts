@@ -9,7 +9,6 @@ declare global {
         id: string;
         email: string;
         rol: string;
-        vehicles?: string[]; // Opcional, si se desea incluir vehículos
       };
     }
   }
@@ -54,7 +53,6 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
       id: string;
       email: string;
       rol: string;
-      vehicles?: string[]; // Opcional, si se desea incluir vehículos
     };
 
     // Agregar la información del usuario al request
@@ -62,7 +60,6 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
       id: decoded.id,
       email: decoded.email,
       rol: decoded.rol,
-      vehicles: decoded.vehicles // Asegurarse de que vehicles sea un array
     };
 
     next();

@@ -7,7 +7,6 @@ interface IUser extends Document {
   correo: string;
   rol: string;
   nombre?: string;
-  vehicles?: string[]; // Asegurarse de que vehicles sea un array
 }
 
 // Interfaz más flexible para el generateToken
@@ -16,14 +15,12 @@ interface IUserForToken {
   correo: string;
   rol: string;
   nombre?: string;
-  vehicles?: string[]; // Asegurarse de que vehicles sea un array
 }
 
 interface TokenPayload {
   id: string;
   email: string;
-  rol: string;
-  vehicles?: string[]; // Opcional, si se desea incluir vehículos
+  rol: string; 
 }
 
 interface LoginResponse {
@@ -32,7 +29,6 @@ interface LoginResponse {
     email: string;
     rol: string;
     nombre?: string;
-    vehicles: string[];
   };
   token: string;
 }
@@ -45,7 +41,6 @@ export class AuthService {
       id: user._id.toString(),
       email: user.correo,
       rol: user.rol || 'user', // Valor por defecto si rol es undefined
-      vehicles: user.vehicles // Asegurarse de que vehicles sea un array
     };
 
     const secret = process.env.JWT_SECRET;
@@ -100,7 +95,6 @@ export class AuthService {
         email: user.correo,
         rol: user.rol,
         nombre: user.nombre,
-        vehicles: user.vehicles || []// Asegurarse de que vehicles sea un array
       },
       token
     };
