@@ -216,6 +216,36 @@ const styles = StyleSheet.create({
     deleteButton: {
         backgroundColor: '#EF4444',
     },
+
+    buttonDisabled: {
+        backgroundColor: '#94a3b8', // un gris azulado claro
+        opacity: 0.7,
+    },
+
+    pickerWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: colors.inputBorder,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        marginBottom: 12,
+        backgroundColor: '#fff',
+    },
+
+    picker: {
+        flex: 1,
+        height: 50,
+        color: colors.textPrimary,
+    },
+
+    label: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: colors.textPrimary,
+        marginBottom: 6,
+    }
+
 });
 
 export default styles;

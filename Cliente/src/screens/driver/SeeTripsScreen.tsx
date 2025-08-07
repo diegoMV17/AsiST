@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import styles from '../../styles/styles';
+import { obtenerToken, obtenerUsuarioDesdeToken } from '../../auth/authService';
+import { getTripsByDriverId } from '../../api/tripApi';
 // import { getMyTrips } from '../../api/TripApi'; // Descomenta y ajusta según tu API
 
 type Trip = {
@@ -17,43 +19,33 @@ type Trip = {
 export default function SeeTripsScreen() {
   const [trips, setTrips] = useState<Trip[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchTrips = async () => {
-      try {
-        // const data = await getMyTrips(); // Reemplaza por tu función real
-        // setTrips(data);
-        // Simulación de datos:
-        setTrips([
-          {
-            _id: '1',
-            origen: 'Bogotá',
-            destino: 'Medellín',
-            fecha: '2025-08-10',
-            hora: '08:00',
-            descripcion: 'Viaje cómodo y seguro',
-            cupos_disponibles: 3,
-            vehicleId: 'V123',
-          },
-          {
-            _id: '2',
-            origen: 'Cali',
-            destino: 'Pereira',
-            fecha: '2025-08-12',
-            hora: '14:30',
-            descripcion: 'Solo equipaje pequeño',
-            cupos_disponibles: 2,
-            vehicleId: 'V456',
-          },
-        ]);
-      } catch (err) {
-        Alert.alert('Error', 'No se pudieron cargar los viajes');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTrips();
-  }, []);
+   useEffect(() => {
+      const loadVehicles = async () => {
+        try {
+          setLoading(true);
+          const token = await obtenerToken();
+          const user = await obtenerUsuarioDesdeToken();
+          
+          if (!token || !user?.id) {
+            setError('Token o usuario no encontrados');
+            return;
+          }
+  
+          const fetchedTrips = await getTripsByDriverId(user.id);
+           console.log('Viajes obtenidos:', fetchedTrips);
+          setTrips(fetchedTrips);
+        } catch (err) {
+          setError('Error al cargar los vehículos');
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      loadVehicles();
+    }, []);
 
   if (loading) {
     return (

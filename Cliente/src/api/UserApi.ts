@@ -42,7 +42,7 @@ export async function registerUser(
   contraseña: string,
   rol: string
 ) {
-  const response = await fetch(`${API_BASE}/api/users`, {
+  const response = await fetch(`${API_BASE}/api/users/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

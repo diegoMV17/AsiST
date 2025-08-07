@@ -37,7 +37,7 @@ export default function LoginScreen({ navigation }: any) {
         } else if (data.user.rol === 'pasajero') {
           navigation.navigate('PassengerTabs', { nombre: data.nombre });
         } else if (data.user.rol === 'ambos') {
-          navigation.navigate('Home', { nombre: data.nombre });
+          navigation.navigate('BothTabs', { nombre: data.nombre });
         }
       } else {
         setError('Credenciales incorrectas');
