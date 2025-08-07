@@ -5,6 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeDriverScreen from '../../screens/driver/HomeDriverScreen';
 import ProfileScreen from '../../screens/shared/ProfileScreen';
 import StackDriver from '../stack/StackDriver';
+import CreatretripsScreen from '../../screens/driver/CreatretripsScreen';
+import SeeTripsScreen from '../../screens/driver/SeeTripsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +25,10 @@ const DriverTabs = () => {
                         iconName = focused ? 'person' : 'person-outline';
                     } else if (route.name === 'Vehiculos') {
                         iconName = focused ? 'car' : 'car-outline';
+                    } else if (route.name === 'Ver mis Viajes') {
+                        iconName = focused ? 'briefcase' : 'briefcase-outline';
+                    } else if (route.name === 'Crear mis Viajes') {
+                        iconName = focused ? 'briefcase' : 'briefcase-outline';
                     }
 
                     return <Ionicons name={iconName as any} size={size} color={color} />;
@@ -34,6 +40,8 @@ const DriverTabs = () => {
             <Tab.Screen name="HomeDriver" component={HomeDriverScreen} />
             <Tab.Screen name="Vehiculos" component={StackDriver} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
+            <Tab.Screen name="Crear mis Viajes" component={CreatretripsScreen} />
+            <Tab.Screen name="Ver mis Viajes" component={SeeTripsScreen} />
         </Tab.Navigator>
     );
 };
