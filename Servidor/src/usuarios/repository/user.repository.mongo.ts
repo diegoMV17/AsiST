@@ -101,4 +101,7 @@ export class UserRepositoryMongo implements UserRepository {
     const user = await UserModel.findById(userId).populate('vehicles').lean().exec();
     return user as CreateUsertDto | null;
   }
+  async findUserByCedula(cedula: string): Promise<CreateUsertDto | null> {
+    return UserModel.findOne({ cedula: cedula }).lean().exec();
+  }
 }

@@ -8,8 +8,23 @@ export class UserService {
     try {
       // Validar si el correo ya está registrado
       const existingUser = await this.userRepository.findUserByEmail(data.correo);
+      const existingCedula = await this.userRepository.findUserByCedula(data.cedula);
+      const allowedDomains = ["usantoto.edu.co", "ustatunja.edu.co"];
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      if (!emailRegex.test(data.correo)) {
+        throw new Error("INVALID_EMAIL_DOMAIN");
+      }
+      const emailDomain = data.correo.split('@')[1];
+
+      if (!allowedDomains.includes(emailDomain)) {
+        throw new Error("INVALID_EMAIL_DOMAIN");
+      }
+      if (existingCedula) {
+        throw new Error('ID_USER_EXISTS');
+      }
       if (existingUser) {
-        throw new Error('User already exists');
+        throw new Error('EMAIL_EXISTS');
       }
 
       // Validación del rol
@@ -80,4 +95,7 @@ export class UserService {
     return this.userRepository.getUserVehicles(userId);
   }
 
+  async findUserByCedula(cedula: string): Promise<CreateUsertDto | null> {
+    return this.userRepository.findUserByCedula(cedula);
+  }
 }

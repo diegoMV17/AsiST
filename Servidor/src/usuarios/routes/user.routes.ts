@@ -23,7 +23,18 @@ userRoutes.post('/register', async (req: Request, res: Response) => {
     const user = await userService.createUser(req.body);
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Error creating user', error });
+    if (error instanceof Error && error.message === 'EMAIL_EXISTS') {
+      res.status(409).json({ message: 'Email already exists' });
+      return;
+    } else if (error instanceof Error && error.message === 'ID_USER_EXISTS') {
+      res.status(409).json({ message: 'User ID already exists' });
+      return;
+    } else if (error instanceof Error && error.message === 'INVALID_EMAIL_DOMAIN') {
+      res.status(400).json({ message: 'Email domain is not allowed' });
+      return;
+    } else {
+      res.status(500).json({ message: 'Error creating user', error });
+    }
   }
 });
 
