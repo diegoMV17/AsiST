@@ -8,6 +8,7 @@ export interface UserRepository {
   updateUser: (id: string, data: UpdateUserDto) => Promise<CreateUsertDto | null>;
   deleteUser: (id: string) => Promise<void>;
   findUserByEmail: (email: string) => Promise<CreateUsertDto | null>;
+  findUserByCedula: (cedula: string) => Promise<CreateUsertDto | null>;
   addVehicleToUser: (userId: string, vehicleId: string) => Promise<CreateUsertDto | null>;
   removeVehicleFromUser: (userId: string, vehicleId: string) => Promise<CreateUsertDto | null>;
   getUserVehicles: (userId: string) => Promise<CreateUsertDto | null>;

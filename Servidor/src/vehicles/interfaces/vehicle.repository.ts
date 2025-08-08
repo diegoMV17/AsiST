@@ -7,4 +7,5 @@ export interface VehicleRepository {
   updateVehicle: (id: string, data: updatedVehicleDto) => Promise<CreateVehicleDto | null>;
   deleteVehicle: (id: string) => Promise<void>;
   findVehicleByPlaca: (placa: string) => Promise<CreateVehicleDto | null>;
+  findVehicleBySerialNumber: (serialNumber: string) => Promise<CreateVehicleDto | null>;
 }

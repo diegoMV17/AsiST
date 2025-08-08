@@ -29,4 +29,9 @@ export class VehicleRepositoryMongo implements VehicleRepository {
             placa: placa
         }).lean().exec();
     }
+    async findVehicleBySerialNumber(serialNumber: string): Promise<CreateVehicleDto | null> {
+        return VehiculoModel.findOne({
+            serialNumber: serialNumber
+        }).lean().exec();
+    }
 }
