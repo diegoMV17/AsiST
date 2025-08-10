@@ -31,5 +31,8 @@ export class TripService {
     async removePassengerFromTrip(tripId: string, passengerId: string): Promise<CreateTripDto | null> {
         return this.tripRepository.removePassengerFromTrip(tripId, passengerId);
     }
+    async getAvailableTrips(): Promise<CreateTripDto[]> {
+        return this.tripRepository.getAvailableTrips();
+    }
 
 }

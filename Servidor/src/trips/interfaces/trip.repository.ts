@@ -11,4 +11,5 @@ export interface TripRepository {
     getTripsByVehicleId: (vehicleId: string) => Promise<CreateTripDto[]>;
     addPassengerToTrip: (tripId: string, passengerId: string) => Promise<CreateTripDto | null>;
     removePassengerFromTrip: (tripId: string, passengerId: string) => Promise<CreateTripDto | null>;
+    getAvailableTrips: () => Promise<CreateTripDto[]>; // New method to get available trips
 }

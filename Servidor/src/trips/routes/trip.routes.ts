@@ -111,5 +111,15 @@ tripRoutes.delete('/:tripId/passengers/:passengerId', async (req: Request, res: 
     res.status(500).json({ message: 'Error removing passenger from trip', error });
   }
 });
+// Obtener viajes disponibles
+tripRoutes.get('/status/available', async (req: Request, res: Response) => {
+  try {
+    const availableTrips = await tripService.getAvailableTrips();
+    res.status(200).json(availableTrips);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching available trips', error });
+  }
+}
+);
 
 export { tripRoutes };
