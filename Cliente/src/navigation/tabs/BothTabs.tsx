@@ -4,9 +4,10 @@ import { Ionicons } from "@expo/vector-icons";
 
 import HomeBothScreen from "../../screens/both/HomeBothScreen";
 import ProfileScreen from "../../screens/shared/ProfileScreen";
-import StackBoth from "../stack/StackBoth";
 import CreatretripsScreen from '../../screens/driver/CreatretripsScreen';
 import SeeTripsScreen from '../../screens/driver/SeeTripsScreen';
+import TripAviableScreen from "../../screens/passenger/TripAviableScreen";
+import DriverTabs from "./DriverTabs";
 
 
 const Tab = createBottomTabNavigator();
@@ -41,11 +42,11 @@ const BothTabs = () => {
       })}
     >
       <Tab.Screen name="HomeBoth" component={HomeBothScreen} />
-      <Tab.Screen name="Vehiculos" component={StackBoth} />
+      <Tab.Screen name="Vehiculos" component={DriverTabs} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Crear mis Viajes" component={CreatretripsScreen} />
       <Tab.Screen name="Ver mis Viajes" component={SeeTripsScreen} />
-      <Tab.Screen name="Viajes Disponibles" component={SeeTripsScreen} />
+      <Tab.Screen name="Viajes Disponibles" component={TripAviableScreen} />
     </Tab.Navigator>
   );
 };

@@ -62,16 +62,16 @@ export default function SeeTripsScreen() {
         data={trips}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <View style={localStyles.card}>
-            <Text style={localStyles.cardTitle}>{item.origen} → {item.destino}</Text>
-            <Text style={localStyles.cardText}>Fecha: {item.fecha}</Text>
-            <Text style={localStyles.cardText}>Hora: {item.hora}</Text>
-            <Text style={localStyles.cardText}>Cupos disponibles: {item.cupos_disponibles}</Text>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>{item.origen} → {item.destino}</Text>
+            <Text style={styles.cardText}>Fecha: {item.fecha}</Text>
+            <Text style={styles.cardText}>Hora: {item.hora}</Text>
+            <Text style={styles.cardText}>Cupos disponibles: {item.cupos_disponibles}</Text>
             {item.descripcion ? (
-              <Text style={localStyles.cardText}>Descripción: {item.descripcion}</Text>
+              <Text style={styles.cardText}>Descripción: {item.descripcion}</Text>
             ) : null}
             {item.vehicleId ? (
-              <Text style={localStyles.cardText}>Vehículo: {item.vehicleId}</Text>
+              <Text style={styles.cardText}>Vehículo: {item.vehicleId}</Text>
             ) : null}
           </View>
         )}
@@ -80,29 +80,3 @@ export default function SeeTripsScreen() {
     </View>
   );
 }
-
-const localStyles = StyleSheet.create({
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 16,
-    marginVertical: 8,
-    marginHorizontal: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 4,
-    color: '#0f172a',
-  },
-  cardText: {
-    fontSize: 15,
-    marginBottom: 2,
-    color: '#334155',
-  },
-});

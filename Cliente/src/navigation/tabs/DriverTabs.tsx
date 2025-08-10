@@ -39,9 +39,9 @@ const DriverTabs = () => {
         >
             <Tab.Screen name="HomeDriver" component={HomeDriverScreen} />
             <Tab.Screen name="Vehiculos" component={StackDriver} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
             <Tab.Screen name="Crear mis Viajes" component={CreatretripsScreen} />
             <Tab.Screen name="Ver mis Viajes" component={SeeTripsScreen} />
+            <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
     );
 };
