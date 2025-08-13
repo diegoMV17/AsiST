@@ -4,8 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HomePassengerScreen from '../../screens/passenger/HomePassengerScreen';
 import ProfileScreen from '../../screens/shared/ProfileScreen';
 import TripAviableScreen from '../../screens/passenger/TripAviableScreen';
-import CreatretripsScreen from '../../screens/driver/CreatretripsScreen';
-import SeeTripsScreen from '../../screens/driver/SeeTripsScreen';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -23,11 +22,7 @@ const PassengerTabs = () => {
                         iconName = focused ? 'person' : 'person-outline';
                     } else if (route.name === 'Viajes Disponibles') {
                         iconName = focused ? 'briefcase' : 'briefcase-outline';
-                    } else if (route.name === 'Ver mis Viajes') {
-                        iconName = focused ? 'briefcase' : 'briefcase-outline';
-                    } else if (route.name === 'Crear mis Viajes') {
-                        iconName = focused ? 'briefcase' : 'briefcase-outline';
-                    }
+                    } 
 
                     return <Ionicons name={iconName as any} size={size} color={color} />;
                 },
@@ -37,8 +32,7 @@ const PassengerTabs = () => {
             <Tab.Screen name="HomePassenger" component={HomePassengerScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
             <Tab.Screen name="Viajes Disponibles" component={TripAviableScreen} />
-            <Tab.Screen name="Crear mis Viajes" component={CreatretripsScreen} />
-            <Tab.Screen name="Ver mis Viajes" component={SeeTripsScreen} />
+            
         </Tab.Navigator>
     );
 };

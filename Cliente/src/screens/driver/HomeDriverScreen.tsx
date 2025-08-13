@@ -46,7 +46,7 @@ const HomeDriverScreen = () => {
           onPress={goToRutas}
         >
           <Icon name="map-marker-path" size={24} color="#fff" />
-          <Text >Ver mis Rutas</Text>
+          <Text >Ver mis Viajes</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
