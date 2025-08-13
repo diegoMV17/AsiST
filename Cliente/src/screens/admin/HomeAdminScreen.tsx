@@ -45,18 +45,7 @@ const HomeAdminScreen: React.FC<HomeAdminScreenProps> = ({ route, navigation }) 
             <Text style={styles.buttonText}>Eliminar rutas</Text>
           </TouchableOpacity>
         </View>
-
-        <View >
-          <Text >Mi cuenta</Text>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('EditarPerfil')}
-            accessibilityLabel="Editar perfil"
-          >
-            <Text style={styles.buttonText}>Editar perfil</Text>
-          </TouchableOpacity>
-        </View>
+        
       </View>
     </ScrollView>
   );

@@ -8,7 +8,7 @@ import SplashScreen from '../../screens/shared/SplashScreen';
 import DriverTabs from '../tabs/DriverTabs';
 import PassengerTabs from '../tabs/PassengerTabs';
 import BothTabs from '../tabs/BothTabs';
-
+import ChatScreen from '../../screens/shared/ChatScreen'; // <-- Importamos el chat
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -20,6 +20,11 @@ export type RootStackParamList = {
   DriverTabs: undefined;
   PassengerTabs: undefined;
   BothTabs: undefined; 
+
+  ChatScreen: { // <-- Tipamos los params
+    tripId: string;
+    userId: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -27,9 +32,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const StackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-      {/* Si quiere que cuando recargue permanezca el usuario en sesion, cambiar a : 
-      <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>  */}
-
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: true }} />
@@ -39,6 +41,13 @@ const StackNavigator = () => {
       <Stack.Screen name="BothTabs" component={BothTabs} />
       <Stack.Screen name="DriverTabs" component={DriverTabs} />
       <Stack.Screen name="PassengerTabs" component={PassengerTabs} />
+
+      {/* Chat accesible desde cualquier parte */}
+      <Stack.Screen 
+        name="ChatScreen" 
+        component={ChatScreen} 
+       
+      />
     </Stack.Navigator>
   );
 };

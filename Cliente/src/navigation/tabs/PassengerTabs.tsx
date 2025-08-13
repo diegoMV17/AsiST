@@ -6,7 +6,6 @@ import ProfileScreen from '../../screens/shared/ProfileScreen';
 import TripAviableScreen from '../../screens/passenger/TripAviableScreen';
 
 
-
 const Tab = createBottomTabNavigator();
 
 const PassengerTabs = () => {

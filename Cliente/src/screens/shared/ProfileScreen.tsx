@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import styles from '../../styles/styles';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { cerrarSesion, obtenerUsuarioDesdeToken, obtenerToken } from '../../auth/authService';
 import { getUserData } from '../../api/UserApi';
 
@@ -57,89 +56,56 @@ export default function ProfileScreen({ navigation }: any) {
 
   if (!user) {
     return (
-      <View style={styles.container}>
+      <View style={styles.center}>
         <Text style={styles.title}>Cargando...</Text>
       </View>
     );
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.formBox}>
-        <Text style={styles.title}>Mi Perfil</Text>
+    <ScrollView style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.email}>{correo}</Text>
+        <Text style={styles.role}>{rol}</Text>
+      </View>
 
-        <Text>Correo institucional</Text>
-        <Text>{correo}</Text>
+      {/* Card con formulario */}
+      <View style={styles.card}>
+        <Text style={styles.label}>Nombre</Text>
+        <TextInput style={styles.input} value={nombre} editable={editing} onChangeText={setNombre} />
 
-        <Text>Rol</Text>
-        <Text>{rol}</Text>
+        <Text style={styles.label}>Apellido</Text>
+        <TextInput style={styles.input} value={apellido} editable={editing} onChangeText={setApellido} />
 
-        <Text>Nombre</Text>
-        <TextInput
-          value={nombre}
-          editable={editing}
-          onChangeText={setNombre}
-          style={styles.input}
-        />
+        <Text style={styles.label}>Teléfono</Text>
+        <TextInput style={styles.input} value={telefono} editable={editing} onChangeText={setTelefono} keyboardType="phone-pad" />
 
-        <Text>Apellido</Text>
-        <TextInput
-          value={apellido}
-          editable={editing}
-          onChangeText={setApellido}
-          style={styles.input}
-        />
+        <Text style={styles.label}>Cédula</Text>
+        <TextInput style={styles.input} value={cedula} editable={editing} onChangeText={setCedula} keyboardType="numeric" />
 
-        <Text>Teléfono</Text>
-        <TextInput
-          value={telefono}
-          editable={editing}
-          onChangeText={setTelefono}
-          style={styles.input}
-          keyboardType="phone-pad"
-        />
+        <Text style={styles.label}>Fecha de Nacimiento</Text>
+        <TextInput style={styles.input} value={fechaNacimiento} editable={editing} onChangeText={setFechaNacimiento} placeholder="YYYY-MM-DD" />
 
-        <Text>Cédula</Text>
-        <TextInput
-          value={cedula}
-          editable={editing}
-          onChangeText={setCedula}
-          style={styles.input}
-          keyboardType="numeric"
-        />
-
-        <Text>Fecha de Nacimiento</Text>
-        <TextInput
-          value={fechaNacimiento}
-          editable={editing}
-          onChangeText={setFechaNacimiento}
-          style={styles.input}
-          placeholder="YYYY-MM-DD"
-        />
-
-        <Text>Ciudad</Text>
-        <TextInput
-          value={ciudad}
-          editable={editing}
-          onChangeText={setCiudad}
-          style={styles.input}
-        />
+        <Text style={styles.label}>Ciudad</Text>
+        <TextInput style={styles.input} value={ciudad} editable={editing} onChangeText={setCiudad} />
 
         {editing && (
           <>
-            <Text>Nueva Contraseña (opcional)</Text>
+            <Text style={styles.label}>Nueva Contraseña (opcional)</Text>
             <TextInput
+              style={styles.input}
               value={contraseña}
               onChangeText={setContraseña}
-              style={styles.input}
               secureTextEntry
               placeholder="Dejar en blanco si no desea cambiarla"
             />
           </>
         )}
 
+        {/* Botones */}
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: editing ? 'green' : '#007bff' }]}
+          style={[styles.button, { backgroundColor: editing ? '#27ae60' : '#2980b9' }]}
           onPress={() => setEditing(!editing)}
         >
           <Text style={styles.buttonText}>
@@ -148,21 +114,52 @@ export default function ProfileScreen({ navigation }: any) {
         </TouchableOpacity>
 
         {editing && (
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: '#888' }]}
-            onPress={() => setEditing(false)}
-          >
+          <TouchableOpacity style={[styles.button, { backgroundColor: '#95a5a6' }]} onPress={() => setEditing(false)}>
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity
-          style={[styles.button, { backgroundColor: 'crimson', marginTop: 20 }]}
-          onPress={handleLogout}
-        >
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#c0392b', marginTop: 10 }]} onPress={handleLogout}>
           <Text style={styles.buttonText}>Cerrar sesión</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#f4f6f9' },
+  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  header: {
+    backgroundColor: '#2D9CDB',
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+  email: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+  role: { color: '#fff', fontSize: 14, marginTop: 4 },
+  card: {
+    backgroundColor: '#fff',
+    margin: 15,
+    padding: 15,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  label: { marginTop: 10, fontWeight: '600', color: '#333' },
+  input: {
+    backgroundColor: '#f1f2f6',
+    padding: 10,
+    borderRadius: 8,
+    marginTop: 4,
+  },
+  button: {
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 15,
+  },
+  buttonText: { color: '#fff', fontWeight: 'bold' },
+  title: { fontSize: 18, fontWeight: 'bold' },
+});
