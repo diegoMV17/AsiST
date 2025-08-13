@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import styles from '../../styles/styles';
-import { getReportes } from '../../api/UserApi';
+/* import { getReportes } from '../../api/UserApi'; */
 
 export default function ReportesScreen() {
   const [reportes, setReportes] = useState<{
@@ -13,8 +13,8 @@ export default function ReportesScreen() {
   useEffect(() => {
     const fetchReportes = async () => {
       try {
-        const data = await getReportes();
-        setReportes(data);
+        /* const data = await getReportes(); */
+        /* setReportes(data); */
       } catch {
         console.log('Error al obtener reportes');
       }

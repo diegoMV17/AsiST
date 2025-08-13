@@ -30,9 +30,8 @@ const PassengerTabs = () => {
                 tabBarInactiveTintColor: 'gray',
             })}>
             <Tab.Screen name="HomePassenger" component={HomePassengerScreen} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
             <Tab.Screen name="Viajes Disponibles" component={TripAviableScreen} />
-            
+            <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
     );
 };

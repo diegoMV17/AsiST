@@ -10,6 +10,7 @@ const tripSchema = new Schema<CreateTripDto>({
     hora: { type: String, required: true },
     descripcion: { type: String, default: '' },
     cupos_disponibles: { type: Number, required: true, min: 1 },
+    disponible: { type: Boolean, default: true },
     passengers: [{ type: Schema.Types.ObjectId, ref: 'User' }] // Referencia a los pasajeros
 }, {
     timestamps: true

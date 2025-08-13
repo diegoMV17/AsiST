@@ -5,24 +5,53 @@ export class UserService {
   constructor(private userRepository: UserRepository) { }
 
   async createUser(data: CreateUsertDto): Promise<CreateUsertDto> {
-    const allowedRoles = ['pasajero', 'conductor', 'ambos'];
+    try {
+      // Validar si el correo ya está registrado
+      const existingUser = await this.userRepository.findUserByEmail(data.correo);
+      const existingCedula = await this.userRepository.findUserByCedula(data.cedula);
+      const allowedDomains = ["usantoto.edu.co", "ustatunja.edu.co"];
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    // Si alguien intenta crear un admin, lanzar error
-    if (data.rol && data.rol === 'admin') {
-      throw new Error('No está permitido crear usuarios con rol admin');
+      if (!emailRegex.test(data.correo)) {
+        throw new Error("INVALID_EMAIL_DOMAIN");
+      }
+      const emailDomain = data.correo.split('@')[1];
+
+      if (!allowedDomains.includes(emailDomain)) {
+        throw new Error("INVALID_EMAIL_DOMAIN");
+      }
+      if (existingCedula) {
+        throw new Error('ID_USER_EXISTS');
+      }
+      if (existingUser) {
+        throw new Error('EMAIL_EXISTS');
+      }
+
+      // Validación del rol
+      const allowedRoles = ['pasajero', 'conductor', 'ambos'];
+
+      // Si alguien intenta crear un admin, lanzar error
+      if (data.rol && data.rol === 'admin') {
+        throw new Error('No está permitido crear usuarios con rol admin');
+      }
+
+      // Validar que el rol enviado esté permitido (opcional pero recomendado)
+      if (data.rol && !allowedRoles.includes(data.rol)) {
+        throw new Error(`Rol inválido. Solo se permiten: ${allowedRoles.join(', ')}`);
+      }
+
+      // Si no se especifica rol, establecer uno por defecto
+      const safeData = {
+        ...data,
+        rol: data.rol ?? 'pasajero', // Asigna 'pasajero' como rol por defecto
+      };
+
+      // Crear el usuario
+      return this.userRepository.createUser(safeData);
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error; // Vuelves a lanzar el error para que sea manejado por el controlador o middleware
     }
-
-    // Validar que el rol enviado esté permitido (opcional pero recomendado)
-    if (data.rol && !allowedRoles.includes(data.rol)) {
-      throw new Error(`Rol inválido. Solo se permiten: ${allowedRoles.join(', ')}`);
-    }
-
-    // Si no se especifica rol, establecer uno por defecto
-    const safeData = {
-      ...data,
-      rol: data.rol ?? 'pasajero',
-    };
-    return this.userRepository.createUser(safeData);
   }
 
   loginUser(data: loginUserDto): Promise<LoginResponse> {
@@ -66,4 +95,7 @@ export class UserService {
     return this.userRepository.getUserVehicles(userId);
   }
 
+  async findUserByCedula(cedula: string): Promise<CreateUsertDto | null> {
+    return this.userRepository.findUserByCedula(cedula);
+  }
 }

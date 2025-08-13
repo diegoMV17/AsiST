@@ -33,7 +33,13 @@ vehicleRoutes.post("/", async (req: Request, res: Response) => {
         const vehicle = await vehicleService.createVehicle(req.body);
         res.status(201).json(vehicle);
     } catch (error) {
-        res.status(500).json({ message: "Error creating vehicle", error });
+        if (error instanceof Error && error.message === 'VEHICLE_EXISTS') {
+            // Error de conficto
+            res.status(409).json({ message: "Vehicle with this plate or serial number already exists" });
+            return;
+        } else {
+            res.status(500).json({ message: "Error creating vehicle", error });
+        }
     }
 });
 vehicleRoutes.put("/:id", async (req: Request, res: Response): Promise<void> => {
