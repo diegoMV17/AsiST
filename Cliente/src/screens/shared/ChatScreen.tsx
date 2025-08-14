@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from "react-native";
 import io, { Socket } from "socket.io-client";
 
-const SOCKET_URL = "*"; // Cambia esto por la URL real de tu backend
+const SOCKET_URL = "*"; 
 
 type Message = {
   senderId: string;
