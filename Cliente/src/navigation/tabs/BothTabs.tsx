@@ -43,10 +43,10 @@ const BothTabs = () => {
     >
       <Tab.Screen name="HomeBoth" component={HomeBothScreen} />
       <Tab.Screen name="Vehiculos" component={DriverTabs} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Crear mis Viajes" component={CreatretripsScreen} />
       <Tab.Screen name="Ver mis Viajes" component={SeeTripsScreen} />
       <Tab.Screen name="Viajes Disponibles" component={TripAviableScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 };
