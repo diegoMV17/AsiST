@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native"
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet,Image } from "react-native"
 
 const HomeScreen = ({ navigation }: any) => {
   return (
@@ -9,6 +9,15 @@ const HomeScreen = ({ navigation }: any) => {
         <Text style={styles.subtitle}>Sistema de Viajes Compartidos</Text>
         <Text style={styles.universityName}>Universidad Santo Tomás</Text>
       </View>
+      {/* Imagen de bienvenida */}
+        <Image
+          source={require('../../../assets/AsiSTU.png')}
+          style={styles.headerImage}
+          resizeMode="contain"
+        />
+        <Text style={styles.subtitle}>Sistema de Viajes Compartidos</Text>
+        <Text style={styles.universityName}>Universidad Santo Tomás</Text>
+      
 
       {/* Welcome Section */}
       <View style={styles.section}>
@@ -164,6 +173,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: "center",
     marginBottom: 20,
+  },
+  headerImage: {
+    width: 180,
+    height: 120,
+    marginBottom: 12,
+    alignSelf: "center",
   },
   mainTitle: {
     fontSize: 36,
