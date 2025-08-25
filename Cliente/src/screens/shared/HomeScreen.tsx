@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet,Image } from "react-native"
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image } from "react-native";
 
 const HomeScreen = ({ navigation }: any) => {
   return (
@@ -10,15 +10,10 @@ const HomeScreen = ({ navigation }: any) => {
         <Text style={styles.universityName}>Universidad Santo Tomás</Text>
       </View>
       {/* Imagen de bienvenida */}
-        <Image
-          source={require('../../../assets/AsiSTU.png')}
-          style={styles.headerImage}
-          resizeMode="contain"
-        />
-        <Text style={styles.subtitle}>Sistema de Viajes Compartidos</Text>
-        <Text style={styles.universityName}>Universidad Santo Tomás</Text>
-      
-
+      <Image
+        style={styles.headerImage}
+        resizeMode="contain"
+      />
       {/* Welcome Section */}
       <View style={styles.section}>
         <Text style={styles.welcomeText}>
@@ -28,114 +23,7 @@ const HomeScreen = ({ navigation }: any) => {
         </Text>
       </View>
 
-      {/* Mission Section */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Nuestra Misión</Text>
-        <Text style={styles.bodyText}>
-          Facilitar la movilidad de estudiantes, docentes y personal administrativo mediante un sistema de viajes
-          compartidos que promueva la sostenibilidad, reduzca costos de transporte y fortalezca los vínculos
-          comunitarios dentro de nuestra institución.
-        </Text>
-      </View>
-
-      {/* Benefits Section */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Beneficios Principales</Text>
-        <View style={styles.benefitsList}>
-          <View style={styles.benefitItem}>
-            <Text style={styles.benefitIcon}>💰</Text>
-            <View style={styles.benefitContent}>
-              <Text style={styles.benefitTitle}>Ahorro Económico</Text>
-              <Text style={styles.benefitDescription}>
-                Reduce significativamente los costos de transporte compartiendo gastos de combustible y peajes.
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.benefitItem}>
-            <Text style={styles.benefitIcon}>🌱</Text>
-            <View style={styles.benefitContent}>
-              <Text style={styles.benefitTitle}>Impacto Ambiental</Text>
-              <Text style={styles.benefitDescription}>
-                Contribuye a la reducción de emisiones de CO₂ y al cuidado del medio ambiente.
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.benefitItem}>
-            <Text style={styles.benefitIcon}>🤝</Text>
-            <View style={styles.benefitContent}>
-              <Text style={styles.benefitTitle}>Comunidad</Text>
-              <Text style={styles.benefitDescription}>
-                Fortalece las relaciones interpersonales dentro de la comunidad tomasina.
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.benefitItem}>
-            <Text style={styles.benefitIcon}>⏰</Text>
-            <View style={styles.benefitContent}>
-              <Text style={styles.benefitTitle}>Optimización de Tiempo</Text>
-              <Text style={styles.benefitDescription}>
-                Coordina horarios y rutas para maximizar la eficiencia en tus desplazamientos.
-              </Text>
-            </View>
-          </View>
-        </View>
-      </View>
-
-      {/* Target Audience */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>¿Quién Puede Participar?</Text>
-        <View style={styles.audienceContainer}>
-          <View style={styles.audienceItem}>
-            <Text style={styles.audienceIcon}>🎓</Text>
-            <Text style={styles.audienceText}>Estudiantes de pregrado y posgrado</Text>
-          </View>
-          <View style={styles.audienceItem}>
-            <Text style={styles.audienceIcon}>👨‍🏫</Text>
-            <Text style={styles.audienceText}>Docentes y catedráticos</Text>
-          </View>
-          <View style={styles.audienceItem}>
-            <Text style={styles.audienceIcon}>👥</Text>
-            <Text style={styles.audienceText}>Personal administrativo</Text>
-          </View>
-        </View>
-        <Text style={styles.requirementText}>* Requiere correo institucional activo (@ustadistancia.edu.co)</Text>
-      </View>
-
-      {/* Features Section */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Funcionalidades Principales</Text>
-        <View style={styles.featuresList}>
-          <Text style={styles.featureItem}>🔐 Autenticación segura con correo institucional</Text>
-          <Text style={styles.featureItem}>🚗 Registro como conductor, pasajero o ambos roles</Text>
-          <Text style={styles.featureItem}>🗺️ Creación y gestión de rutas personalizadas</Text>
-          <Text style={styles.featureItem}>📍 Geolocalización y puntos de encuentro</Text>
-          <Text style={styles.featureItem}>⭐ Sistema de calificaciones y reputación</Text>
-          <Text style={styles.featureItem}>📱 Notificaciones en tiempo real</Text>
-          <Text style={styles.featureItem}>📊 Historial completo de viajes</Text>
-          <Text style={styles.featureItem}>💬 Chat integrado para coordinación</Text>
-        </View>
-      </View>
-
-      {/* Security Section */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Seguridad y Confianza</Text>
-        <Text style={styles.bodyText}>
-          AisteU implementa medidas de seguridad robustas para garantizar la confianza entre usuarios. Todos los
-          participantes deben verificar su identidad con correo institucional, y contamos con un sistema de
-          calificaciones que promueve comportamientos responsables y seguros.
-        </Text>
-      </View>
-
-      {/* CTA Section */}
-      <View style={styles.ctaSection}>
-        <Text style={styles.ctaTitle}>Únete a la Comunidad AisteU</Text>
-        <Text style={styles.ctaText}>
-          Comienza a disfrutar de los beneficios de la movilidad colaborativa. Si ya tienes una cuenta, inicia sesión.
-          Si eres nuevo, regístrate y forma parte del cambio.
-        </Text>
+      
 
         <TouchableOpacity
           style={[styles.primaryButton, { marginTop: 20 }]}
@@ -150,13 +38,13 @@ const HomeScreen = ({ navigation }: any) => {
         >
           <Text style={styles.secondaryButtonText}>Crear Cuenta Nueva</Text>
         </TouchableOpacity>
-      </View>
+      
 
       {/* Footer */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>© {new Date().getFullYear()} Universidad Santo Tomás</Text>
         <Text style={styles.footerSubtext}>AisteU - Sistema de Viajes Compartidos</Text>
-        <Text style={styles.versionText}>Versión 1.0</Text>
+        <Text style={styles.versionText}>Versión 2.0</Text>
       </View>
     </ScrollView>
   )

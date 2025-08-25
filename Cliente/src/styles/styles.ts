@@ -37,12 +37,20 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 26,
-        marginBottom: 12,
-        fontWeight: '700',
-        color: colors.primary,
-        textAlign: 'center',
-    },
+  fontSize: 28,
+  fontWeight: 'bold',
+  color: '#1e3a8a',
+  marginBottom: 16,
+  textAlign: 'center',
+},
+    
+mainTitle: {
+  fontSize: 32,
+  fontWeight: 'bold',
+  color: '#2563eb',
+  textAlign: 'center',
+  marginBottom: 8,
+},
 
     subtitle: {
         fontSize: 18,
@@ -60,17 +68,17 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 
-    input: {
-        borderWidth: 1,
-        borderColor: colors.inputBorder,
-        marginBottom: 12,
-        padding: 12,
-        borderRadius: 8,
-        fontSize: 16,
-        color: colors.textPrimary,
-        backgroundColor: '#FFFFFF',
-        width: '100%',
-    },
+  input: {
+  backgroundColor: '#fff',
+  borderColor: '#e5e7eb',
+  borderWidth: 1,
+  borderRadius: 8,
+  paddingHorizontal: 12,
+  paddingVertical: 10,
+  fontSize: 16,
+  marginBottom: 10,
+  color: '#1e293b',
+},
 
     link: {
         color: colors.accent,
@@ -110,7 +118,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 16,
     fontWeight: "600",
-  },
+  }, 
   secondaryButton: {
     backgroundColor: "transparent",
     borderWidth: 2,
