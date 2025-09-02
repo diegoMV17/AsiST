@@ -1,32 +1,30 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet,Image } from "react-native"
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet,Image, ImageBackground } from "react-native"
 
 const HomeScreen = ({ navigation }: any) => {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {/* Header Section */}
-      <View style={styles.headerSection}>
-        <Text style={styles.mainTitle}>AisteU</Text>
-        <Text style={styles.subtitle}>Sistema de Viajes Compartidos</Text>
-        <Text style={styles.universityName}>Universidad Santo Tomás</Text>
-      </View>
-      {/* Imagen de bienvenida */}
-        <Image
-          source={require('../../../assets/AsiSTU.png')}
-          style={styles.headerImage}
-          resizeMode="contain"
-        />
-        <Text style={styles.subtitle}>Sistema de Viajes Compartidos</Text>
-        <Text style={styles.universityName}>Universidad Santo Tomás</Text>
-      
+      <ImageBackground
+        source={require("../../../assets/AsiSTU.png")}
+        style={styles.headerImage}
+        imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}
+        resizeMode="cover"
+      >
+        <View style={styles.overlay}>
+          <Text style={styles.mainTitle}>AisteU</Text>
+          <Text style={styles.subtitle}>Sistema de Viajes Compartidos</Text>
+          <Text style={styles.universityName}>Universidad Santo Tomás</Text>
+        </View>
+      </ImageBackground>
 
       {/* Welcome Section */}
       <View style={styles.section}>
         <Text style={styles.welcomeText}>
-          Bienvenido a la plataforma oficial de movilidad colaborativa de la Universidad Santo Tomás. AisteU conecta a
-          nuestra comunidad universitaria para optimizar los desplazamientos diarios de manera segura, económica y
-          sostenible.
+          Bienvenido a la plataforma oficial de movilidad colaborativa de la Universidad Santo Tomás. 
+          AisteU conecta a nuestra comunidad universitaria para optimizar los desplazamientos diarios 
+          de manera segura, económica y sostenible.
         </Text>
       </View>
+
 
       {/* Mission Section */}
       <View style={styles.section}>
@@ -174,11 +172,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
   },
-  headerImage: {
-    width: 180,
-    height: 120,
-    marginBottom: 12,
-    alignSelf: "center",
+    headerImage: {
+    width: "100%",
+    height: 220,
+    justifyContent: "center",
+    alignItems: "center",
   },
   mainTitle: {
     fontSize: 36,
@@ -371,6 +369,17 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: "#9ca3af",
   },
+  overlay: {
+    backgroundColor: "rgba(30, 58, 138, 0.55)", // azul oscuro con transparencia
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    paddingHorizontal: 16,
+  },
+  
 })
 
 export default HomeScreen
