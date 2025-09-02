@@ -1,36 +1,36 @@
 import { VehicleRepository } from '../interfaces/vehicle.repository';
-import { VehiculoModel } from '../models/vehicles.model';
+import { VehicleModel as VehicleModel } from '../models/vehicles.model';
 import { CreateVehicleDto, updatedVehicleDto } from '../interfaces/vehicle.dto';
 
 export class VehicleRepositoryMongo implements VehicleRepository {    
 
     async createVehicle(data: CreateVehicleDto) {
-        const vehicle = await VehiculoModel.create(data);
+        const vehicle = await VehicleModel.create(data);
         return vehicle;
     }
 
     async getAllVehicles(): Promise<CreateVehicleDto[]> {
-        return VehiculoModel.find().lean().exec();
+        return VehicleModel.find().lean().exec();
     }
 
     async getById(id: string): Promise<CreateVehicleDto | null> {
-        return VehiculoModel.findById(id).lean().exec();
+        return VehicleModel.findById(id).lean().exec();
     }
 
     async updateVehicle(id: string, data: updatedVehicleDto): Promise<CreateVehicleDto | null> {
-        const updatedVehicle = await VehiculoModel.findByIdAndUpdate(id, data, { new: true }).lean().exec();
+        const updatedVehicle = await VehicleModel.findByIdAndUpdate(id, data, { new: true }).lean().exec();
         return updatedVehicle;
     }
     async deleteVehicle(id: string): Promise<void> {
-        await VehiculoModel.findByIdAndDelete(id).exec();
+        await VehicleModel.findByIdAndDelete(id).exec();
     }
     async findVehicleByPlaca(placa: string): Promise<CreateVehicleDto | null> {
-        return VehiculoModel.findOne({
+        return VehicleModel.findOne({
             placa: placa
         }).lean().exec();
     }
     async findVehicleBySerialNumber(serialNumber: string): Promise<CreateVehicleDto | null> {
-        return VehiculoModel.findOne({
+        return VehicleModel.findOne({
             serialNumber: serialNumber
         }).lean().exec();
     }

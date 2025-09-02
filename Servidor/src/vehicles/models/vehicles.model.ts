@@ -12,4 +12,4 @@ const vehicleSchema = new Schema<CreateVehicleDto>({
     capacidad: { type: Number, required: true },
 });
 
-export const VehiculoModel = model<CreateVehicleDto>('Vehicle', vehicleSchema);
+export const VehicleModel = model<CreateVehicleDto>('Vehicle', vehicleSchema);
