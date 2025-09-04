@@ -1,99 +1,75 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity, ActivityIndicator,Alert, StyleSheet } from "react-native";
-import Constants from "expo-constants";
-import { getAvailableTrips } from "../../api/tripApi";
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
+import globalStyles from '../../styles/styles';
+import { getAvailableTrips } from '../../api/tripApi';
 
-export default function TripAvailableScreen() {
-  const [trips, setTrips] = useState<any[]>([]);
+type Trip = {
+  _id: string;
+  origen: string;
+  destino: string;
+  fecha: string;
+  hora: string;
+  descripcion?: string;
+  cupos_disponibles: number;
+  driverName?: string;
+  vehicleInfo?: string;
+};
+
+export default function TripAviableScreen() {
+  const [trips, setTrips] = useState<Trip[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const API_BASE = Constants.expoConfig?.extra?.PUBLIC_URL_API;
-
   useEffect(() => {
-    const loadTrips  = async () => {
-
+    const loadTrips = async () => {
       try {
-       setLoading(true);
+        setLoading(true);
         const fetchedTrips = await getAvailableTrips();
         setTrips(fetchedTrips); 
-      }  catch (err) {
+      } catch (err) {
         Alert.alert('Error', 'No se pudieron cargar los viajes disponibles');
       } finally {
         setLoading(false);
       }
     };
-
-    loadTrips ();
+    loadTrips();
   }, []);
-
-  const demoTrips = [
-    {
-      id: "demo1",
-      origen: "Bogotá",
-      destino: "Medellín",
-      fecha: "2025-08-20",
-      hora: "08:00",
-      cupos_disponibles: 3,
-      precio: 50000,
-    },
-    {
-      id: "demo2",
-      origen: "Cali",
-      destino: "Cartagena",
-      fecha: "2025-08-21",
-      hora: "07:30",
-      cupos_disponibles: 2,
-      precio: 80000,
-    },
-  ];
 
   if (loading) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
-        <Text>Cargando viajes...</Text>
+      <View style={globalStyles.container}>
+        <ActivityIndicator size="large" color="#0f172a" />
       </View>
     );
   }
 
   return (
-    <FlatList
-      data={trips}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => (
-        <View style={styles.tripCard}>
-          <Text style={styles.title}>{item.origen} ➡ {item.destino}</Text>
-          <Text>{item.fecha} - {item.hora}</Text>
-          <Text>Cupos: {item.cupos_disponibles}</Text>
-          <Text>Precio: ${item.precio}</Text>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Postularme</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    />
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.title}>Viajes Disponibles</Text>
+      <FlatList
+        data={trips}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
+          <View style={globalStyles.card}>
+            <Text style={globalStyles.cardTitle}>{item.origen} → {item.destino}</Text>
+            <Text style={globalStyles.cardText}>Fecha: {item.fecha}</Text>
+            <Text style={globalStyles.cardText}>Hora: {item.hora}</Text>
+            <Text style={globalStyles.cardText}>Cupos disponibles: {item.cupos_disponibles}</Text>
+            {item.descripcion ? (
+              <Text style={globalStyles.cardText}>Descripción: {item.descripcion}</Text>
+            ) : null}
+            {item.driverName ? (
+              <Text style={globalStyles.cardText}>Conductor: {item.driverName}</Text>
+            ) : null}
+            {item.vehicleInfo ? (
+              <Text style={globalStyles.cardText}>Vehículo: {item.vehicleInfo}</Text>
+            ) : null}
+            <TouchableOpacity style={globalStyles.button}>
+              <Text style={globalStyles.buttonText}>Postularme</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        ListEmptyComponent={<Text style={globalStyles.normalText}>No hay viajes disponibles en este momento.</Text>}
+      />
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  center: { flex: 1, justifyContent: "center", alignItems: "center" },
-  tripCard: {
-    backgroundColor: "#fff",
-    padding: 15,
-    margin: 10,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
-  },
-  title: { fontSize: 16, fontWeight: "bold", marginBottom: 5 },
-  button: {
-    marginTop: 10,
-    backgroundColor: "#007AFF",
-    padding: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  buttonText: { color: "#fff", fontWeight: "bold" },
-});

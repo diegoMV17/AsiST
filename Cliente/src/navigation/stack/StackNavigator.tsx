@@ -19,7 +19,7 @@ export type RootStackParamList = {
   AdminTabs: undefined;
   DriverTabs: undefined;
   PassengerTabs: undefined;
-  BothTabs: undefined; 
+  BothTabs: undefined;
 
   ChatScreen: { // <-- Tipamos los params
     tripId: string;
@@ -32,6 +32,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const StackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+      {/* Si quiere que cuando recargue permanezca el usuario en sesion, cambiar a : 
+      <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>  */}
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: true }} />
@@ -43,10 +45,10 @@ const StackNavigator = () => {
       <Stack.Screen name="PassengerTabs" component={PassengerTabs} />
 
       {/* Chat accesible desde cualquier parte */}
-      <Stack.Screen 
-        name="ChatScreen" 
-        component={ChatScreen} 
-       
+      <Stack.Screen
+        name="ChatScreen"
+        component={ChatScreen}
+
       />
     </Stack.Navigator>
   );

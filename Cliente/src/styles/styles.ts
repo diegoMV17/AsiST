@@ -13,7 +13,7 @@ const colors = {
     shadow: '#000000',
 };
 
-const styles = StyleSheet.create({
+const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
@@ -36,21 +36,37 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
+     profileFormBox: {
+        width: '95%',
+        maxWidth: 700, // antes 400
+        backgroundColor: colors.cardBackground,
+        borderRadius: 30, // antes 16
+        padding: 48,      // antes 24
+        shadowColor: colors.shadow,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 12, // antes 8
+        elevation: 8,     // antes 4
+        alignItems: 'center',
+        marginTop: 60,    // antes 20
+        marginBottom: 60, // antes 20
+    },
+
     title: {
-  fontSize: 28,
-  fontWeight: 'bold',
-  color: '#1e3a8a',
-  marginBottom: 16,
-  textAlign: 'center',
-},
-    
-mainTitle: {
-  fontSize: 32,
-  fontWeight: 'bold',
-  color: '#2563eb',
-  textAlign: 'center',
-  marginBottom: 8,
-},
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#1e3a8a',
+        marginBottom: 16,
+        textAlign: 'center',
+    },
+
+    mainTitle: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#2563eb',
+        textAlign: 'center',
+        marginBottom: 8,
+    },
 
     subtitle: {
         fontSize: 18,
@@ -68,17 +84,17 @@ mainTitle: {
         textAlign: 'center',
     },
 
-  input: {
-  backgroundColor: '#fff',
-  borderColor: '#e5e7eb',
-  borderWidth: 1,
-  borderRadius: 8,
-  paddingHorizontal: 12,
-  paddingVertical: 10,
-  fontSize: 16,
-  marginBottom: 10,
-  color: '#1e293b',
-},
+    input: {
+        backgroundColor: '#fff',
+        borderColor: '#e5e7eb',
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        fontSize: 16,
+        marginBottom: 10,
+        color: '#1e293b',
+    },
 
     link: {
         color: colors.accent,
@@ -107,33 +123,39 @@ mainTitle: {
         fontSize: 16,
     },
     primaryButton: {
-    backgroundColor: "#1e3a8a",
-    paddingVertical: 14,
-    paddingHorizontal: 32,
-    borderRadius: 8,
-    width: "100%",
-    alignItems: "center",
-  },
-  primaryButtonText: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "600",
-  }, 
-  secondaryButton: {
-    backgroundColor: "transparent",
-    borderWidth: 2,
-    borderColor: "#1e3a8a",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 8,
-    width: "100%",
-    alignItems: "center",
-  },
-  secondaryButtonText: {
-    color: "#1e3a8a",
-    fontSize: 16,
-    fontWeight: "600",
-  },
+        backgroundColor: "#1e3a8a",
+        paddingVertical: 14,
+        paddingHorizontal: 32,
+        borderRadius: 8,
+        width: "100%",
+        alignItems: "center",
+    },
+    primaryButtonText: {
+        color: "#ffffff",
+        fontSize: 16,
+        fontWeight: "600",
+    },
+    secondaryButton: {
+        backgroundColor: "transparent",
+        borderWidth: 2,
+        borderColor: "#1e3a8a",
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 8,
+        width: "100%",
+        alignItems: "center",
+    },
+    secondaryButtonText: {
+        color: "#1e3a8a",
+        fontSize: 16,
+        fontWeight: "600",
+    },
+    successButton: {
+        backgroundColor: "#27ae60", // verde éxito
+    },
+    dangerButton: {
+        backgroundColor: "#c0392b", // rojo error
+    },
 
     errorText: {
         color: colors.error,
@@ -402,6 +424,8 @@ mainTitle: {
         textAlign: "center",
         lineHeight: 22,
     },
+    email: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+    role: { color: '#fff', fontSize: 14, marginTop: 4 },
 });
 
-export default styles;
+export default globalStyles;

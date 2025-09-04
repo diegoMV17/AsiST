@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useNavigation, useRoute, NavigationProp } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import styles from "../../styles/styles";
+import globalStyles from "../../styles/styles";
 
 const HomeBothScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -27,18 +27,18 @@ const HomeBothScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0f172a" />
 
       <View>
-        <Text style={styles.title}>Panel de Ambos</Text>
-        <Text style={styles.normalText}>
+        <Text style={globalStyles.title}>Panel de Ambos</Text>
+        <Text style={globalStyles.normalText}>
           ¡Bienvenido, {nombre}! Has ingresado correctamente como usuario con rol ambos.
         </Text>
       </View>
 
       <ScrollView
-        contentContainerStyle={styles.formBox}
+        contentContainerStyle={globalStyles.formBox}
         showsVerticalScrollIndicator={false}
       >
         <TouchableOpacity onPress={goToRutas}>

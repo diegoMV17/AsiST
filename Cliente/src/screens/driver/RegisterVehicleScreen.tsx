@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import styles from '../../styles/styles';
+import globalStyles from '../../styles/styles';
 import { createVehicle } from '../../api/VehicleApi';
 import { relateVehicleToUser } from '../../api/UserApi';
 import { obtenerToken, obtenerUsuarioDesdeToken } from '../../auth/authService';
@@ -70,63 +70,63 @@ export default function RegisterVehicleScreen({ navigation }: any) {
 
   return (
     <ScrollView >
-      <View style={styles.formBox}>
-        <Text style={styles.title}>Registro de Vehículo</Text>
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      <View style={globalStyles.formBox}>
+        <Text style={globalStyles.title}>Registro de Vehículo</Text>
+        {error ? <Text style={globalStyles.errorText}>{error}</Text> : null}
 
         <TextInput
           placeholder="Placa"
           value={placa}
           onChangeText={setPlaca}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
           placeholder="Marca"
           value={marca}
           onChangeText={setMarca}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
           placeholder="Número de Serie"
           value={numeroSerie}
           onChangeText={setNumeroSerie}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
           placeholder="SOAT"
           value={soat}
           onChangeText={setSoat}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
           placeholder="Modelo"
           value={modelo}
           onChangeText={setModelo}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
 
         {/* Selector de tipo */}
-        <View style={styles.roleSelectorContainer}>
-          <Text style={styles.roleSelectorLabel}>Tipo de vehículo:</Text>
-          <View style={styles.roleSelectorRow}>
+        <View style={globalStyles.roleSelectorContainer}>
+          <Text style={globalStyles.roleSelectorLabel}>Tipo de vehículo:</Text>
+          <View style={globalStyles.roleSelectorRow}>
             {['carro', 'SUV', 'camioneta', 'sedan'].map((r) => (
               <TouchableOpacity
                 key={r}
                 style={[
-                  styles.roleSelectorButton,
-                  tipo === r && styles.roleSelectorButtonActive,
+                  globalStyles.roleSelectorButton,
+                  tipo === r && globalStyles.roleSelectorButtonActive,
                 ]}
                 onPress={() => setTipo(r as any)}
               >
                 <Text
                   style={[
-                    styles.roleSelectorButtonText,
-                    tipo === r && styles.roleSelectorButtonTextActive,
+                    globalStyles.roleSelectorButtonText,
+                    tipo === r && globalStyles.roleSelectorButtonTextActive,
                   ]}
                 >
                   {r.charAt(0).toUpperCase() + r.slice(1)}
@@ -140,24 +140,24 @@ export default function RegisterVehicleScreen({ navigation }: any) {
           placeholder="Color"
           value={color}
           onChangeText={setColor}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
           placeholder="Capacidad"
           value={capacidad}
           onChangeText={setCapacidad}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
           keyboardType="numeric"
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleRegisterVehicle}>
-          <Text style={styles.buttonText}>Registrar Vehículo</Text>
+        <TouchableOpacity style={globalStyles.button} onPress={handleRegisterVehicle}>
+          <Text style={globalStyles.buttonText}>Registrar Vehículo</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.link}>Volver</Text>
+          <Text style={globalStyles.link}>Volver</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

@@ -10,7 +10,7 @@ import {
 import { Picker } from '@react-native-picker/picker';
 import { getUserVehicles } from '../../api/UserApi';
 import { obtenerToken, obtenerUsuarioDesdeToken } from '../../auth/authService';
-import styles from '../../styles/styles';
+import globalStyles from '../../styles/styles';
 import { createTrip } from '../../api/tripApi';
 
 
@@ -111,21 +111,21 @@ export default function CreateTripsScreen() {
   return (
 
     <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.formBox}>
-          <Text style={styles.title}>Crear Nuevo Viaje</Text>
-          <Text style={styles.subtitle}>
+      <View style={globalStyles.container}>
+        <View style={globalStyles.formBox}>
+          <Text style={globalStyles.title}>Crear Nuevo Viaje</Text>
+          <Text style={globalStyles.subtitle}>
             Comparte tu viaje y conecta con otros pasajeros
           </Text>
 
-          {error ? <Text style={styles.errorText}>{error}</Text> : null}
+          {error ? <Text style={globalStyles.errorText}>{error}</Text> : null}
 
           {/* Vehículo Picker */}
-          <Text style={styles.label}>Selecciona tu vehículo</Text>
-          <View style={styles.pickerWrapper}>
+          <Text style={globalStyles.label}>Selecciona tu vehículo</Text>
+          <View style={globalStyles.pickerWrapper}>
             <Picker
               selectedValue={vehicleId}
-              style={styles.picker}
+              style={globalStyles.picker}
               onValueChange={(value) => setVehicleId(value)}
               dropdownIconColor="#666"
             >
@@ -141,35 +141,35 @@ export default function CreateTripsScreen() {
             placeholder="Origen"
             value={origen}
             onChangeText={setOrigen}
-            style={styles.input}
+            style={globalStyles.input}
             placeholderTextColor="#999"
           />
           <TextInput
             placeholder="Destino"
             value={destino}
             onChangeText={setDestino}
-            style={styles.input}
+            style={globalStyles.input}
             placeholderTextColor="#999"
           />
           <TextInput
             placeholder="Fecha (YYYY-MM-DD)"
             value={fecha}
             onChangeText={setFecha}
-            style={styles.input}
+            style={globalStyles.input}
             placeholderTextColor="#999"
           />
           <TextInput
             placeholder="Hora (HH:MM)"
             value={hora}
             onChangeText={setHora}
-            style={styles.input}
+            style={globalStyles.input}
             placeholderTextColor="#999"
           />
           <TextInput
             placeholder="Cupos disponibles"
             value={cupos_disponibles}
             onChangeText={setCuposDisponibles}
-            style={styles.input}
+            style={globalStyles.input}
             placeholderTextColor="#999"
             keyboardType="numeric"
           />
@@ -177,20 +177,20 @@ export default function CreateTripsScreen() {
             placeholder="Descripción del viaje (opcional)"
             value={descripcion}
             onChangeText={setDescripcion}
-            style={[styles.input, { height: 80 }]}
+            style={[globalStyles.input, { height: 80 }]}
             placeholderTextColor="#999"
             multiline
           />
 
           <TouchableOpacity
-            style={[styles.button, isSubmitting && styles.buttonDisabled]}
+            style={[globalStyles.button, isSubmitting && globalStyles.buttonDisabled]}
             onPress={handleSubmit}
             disabled={isSubmitting}
           >
             {isSubmitting ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
-              <Text style={styles.buttonText}>Crear Viaje</Text>
+              <Text style={globalStyles.buttonText}>Crear Viaje</Text>
             )}
           </TouchableOpacity>
         </View>

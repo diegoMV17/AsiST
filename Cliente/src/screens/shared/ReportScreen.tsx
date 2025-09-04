@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import styles from '../../styles/styles';
+import globalStyles from '../../styles/styles';
 /* import { getReportes } from '../../api/UserApi'; */
 
 export default function ReportesScreen() {
@@ -23,8 +23,8 @@ export default function ReportesScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Reportes</Text>
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.title}>Reportes</Text>
       <View >
         <Text>Total de usuarios: {reportes.usuarios}</Text>
         <Text>Viajes realizados: {reportes.viajes}</Text>

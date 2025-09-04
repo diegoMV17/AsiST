@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView, Platform } from "react-native"
 import DateTimePicker from "@react-native-community/datetimepicker"
-import styles from "../../styles/styles"
+import globalStyles from "../../styles/styles"
 import { isValidDomainEmail, validateLogin } from "../../context/AuthContext"
 import { registerUser } from "../../api/UserApi"
 
@@ -53,29 +53,29 @@ export default function RegisterScreen({ navigation }: any) {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.formBox}>
-        <Text style={styles.title}>Registro</Text>
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+    <ScrollView contentContainerStyle={globalStyles.container}>
+      <View style={globalStyles.formBox}>
+        <Text style={globalStyles.title}>Registro</Text>
+        {error ? <Text style={globalStyles.errorText}>{error}</Text> : null}
         <TextInput
           placeholder="Nombre"
           value={nombre}
           onChangeText={setNombre}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
           placeholder="Apellido"
           value={apellido}
           onChangeText={setApellido}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
           placeholder="Teléfono"
           value={telefono}
           onChangeText={setTelefono}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
           keyboardType="phone-pad"
         />
@@ -83,20 +83,20 @@ export default function RegisterScreen({ navigation }: any) {
           placeholder="Cédula"
           value={cedula}
           onChangeText={setCedula}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
           keyboardType="numeric"
         />
         {Platform.OS === "web" ? (
           <input
             type="date"
-            style={{ ...styles.dateInput, color: fechaNacimiento ? "#000" : "#999" }}
+            style={{ ...globalStyles.dateInput, color: fechaNacimiento ? "#000" : "#999" }}
             value={fechaNacimiento}
             onChange={(e) => setFechaNacimiento(e.target.value)}
           />
         ) : (
           <>
-            <TouchableOpacity style={styles.input} onPress={() => setShowDatePicker(true)}>
+            <TouchableOpacity style={globalStyles.input} onPress={() => setShowDatePicker(true)}>
               <Text style={{ color: fechaNacimiento ? "#000" : "#999" }}>
                 {fechaNacimiento || "Fecha de nacimiento (YYYY-MM-DD)"}
               </Text>
@@ -124,7 +124,7 @@ export default function RegisterScreen({ navigation }: any) {
           placeholder="Ciudad"
           value={ciudad}
           onChangeText={setCiudad}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
@@ -133,7 +133,7 @@ export default function RegisterScreen({ navigation }: any) {
           onChangeText={setEmail}
           autoCapitalize="none"
           keyboardType="email-address"
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
@@ -141,31 +141,31 @@ export default function RegisterScreen({ navigation }: any) {
           value={password}
           onChangeText={setPassword}
           secureTextEntry
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         {/* Selector de rol */}
-        <View style={styles.roleSelectorContainer}>
-          <Text style={styles.roleSelectorLabel}>Rol:</Text>
-          <View style={styles.roleSelectorRow}>
+        <View style={globalStyles.roleSelectorContainer}>
+          <Text style={globalStyles.roleSelectorLabel}>Rol:</Text>
+          <View style={globalStyles.roleSelectorRow}>
             {["conductor", "pasajero", "ambos"].map((r) => (
               <TouchableOpacity
                 key={r}
-                style={[styles.roleSelectorButton, rol === r && styles.roleSelectorButtonActive]}
+                style={[globalStyles.roleSelectorButton, rol === r && globalStyles.roleSelectorButtonActive]}
                 onPress={() => setRol(r as any)}
               >
-                <Text style={[styles.roleSelectorButtonText, rol === r && styles.roleSelectorButtonTextActive]}>
+                <Text style={[globalStyles.roleSelectorButtonText, rol === r && globalStyles.roleSelectorButtonTextActive]}>
                   {r.charAt(0).toUpperCase() + r.slice(1)}
                 </Text>
               </TouchableOpacity>
             ))}
           </View>
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Registrarse</Text>
+        <TouchableOpacity style={globalStyles.button} onPress={handleRegister}>
+          <Text style={globalStyles.buttonText}>Registrarse</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={styles.link}>¿Ya tienes cuenta? Inicia sesión aquí</Text>
+          <Text style={globalStyles.link}>¿Ya tienes cuenta? Inicia sesión aquí</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

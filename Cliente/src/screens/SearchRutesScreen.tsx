@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
-import styles from '../styles/styles';
+import globalStyles from '../styles/styles';
 import { searchRoutes, joinRoute } from '../api/UserApi';
 
 export default function BuscarRutasScreen({ route }: any) {
@@ -50,33 +50,33 @@ export default function BuscarRutasScreen({ route }: any) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Buscar Rutas</Text>
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.title}>Buscar Rutas</Text>
 
       <View style={localStyles.filters}>
         <TextInput
           placeholder="Filtrar por destino"
           value={filters.destino}
           onChangeText={(val) => setFilters({ ...filters, destino: val })}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
           placeholder="Filtrar por hora"
           value={filters.hora}
           onChangeText={(val) => setFilters({ ...filters, hora: val })}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
           placeholder="Filtrar por conductor"
           value={filters.conductor}
           onChangeText={(val) => setFilters({ ...filters, conductor: val })}
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
-        <TouchableOpacity style={styles.button} onPress={fetchRutas}>
-          <Text style={styles.buttonText}>Buscar</Text>
+        <TouchableOpacity style={globalStyles.button} onPress={fetchRutas}>
+          <Text style={globalStyles.buttonText}>Buscar</Text>
         </TouchableOpacity>
       </View>
 
