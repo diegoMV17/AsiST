@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import styles from '../../styles/styles';
+import globalStyles from '../../styles/styles';
 
 type HomeAdminScreenProps = {
   route: { params?: { nombre?: string } };
@@ -11,10 +11,10 @@ const HomeAdminScreen: React.FC<HomeAdminScreenProps> = ({ route, navigation }) 
   const nombre = route?.params?.nombre || 'Administrador';
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.formBox}>
-        <Text style={styles.title}>Panel de Administración</Text>
-        <Text style={styles.normalText}>
+    <ScrollView contentContainerStyle={globalStyles.container}>
+      <View style={globalStyles.formBox}>
+        <Text style={globalStyles.title}>Panel de Administración</Text>
+        <Text style={globalStyles.normalText}>
           ¡Bienvenido, {nombre}! Has ingresado correctamente como administrador.
         </Text>
 
@@ -22,41 +22,30 @@ const HomeAdminScreen: React.FC<HomeAdminScreenProps> = ({ route, navigation }) 
           <Text >Gestión de rutas</Text>
 
           <TouchableOpacity
-            style={styles.button}
+            style={globalStyles.button}
             onPress={() => navigation.navigate('VerRutas')}
             accessibilityLabel="Ver rutas"
           >
-            <Text style={styles.buttonText}>Ver rutas</Text>
+            <Text style={globalStyles.buttonText}>Ver rutas</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.button}
+            style={globalStyles.button}
             onPress={() => navigation.navigate('EditarRuta')}
             accessibilityLabel="Editar rutas"
           >
-            <Text style={styles.buttonText}>Editar rutas</Text>
+            <Text style={globalStyles.buttonText}>Editar rutas</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.button}
+            style={globalStyles.button}
             onPress={() => navigation.navigate('EliminarRuta')}
             accessibilityLabel="Eliminar rutas"
           >
-            <Text style={styles.buttonText}>Eliminar rutas</Text>
+            <Text style={globalStyles.buttonText}>Eliminar rutas</Text>
           </TouchableOpacity>
         </View>
-
-        <View >
-          <Text >Mi cuenta</Text>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('EditarPerfil')}
-            accessibilityLabel="Editar perfil"
-          >
-            <Text style={styles.buttonText}>Editar perfil</Text>
-          </TouchableOpacity>
-        </View>
+        
       </View>
     </ScrollView>
   );

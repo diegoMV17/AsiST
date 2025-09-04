@@ -9,6 +9,7 @@ export interface CreateTripDto {
     hora: string;
     descripcion?: string;
     cupos_disponibles: number;
+    disponible: boolean;
     passengers?: Types.ObjectId[]; 
 }
 export interface UpdateTripDto {
@@ -20,5 +21,6 @@ export interface UpdateTripDto {
     hora?: string;
     descripcion?: string;
     cupos_disponibles?: number;
+    disponible?:boolean;
     passengers?: Types.ObjectId[];
 }

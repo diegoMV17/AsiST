@@ -65,7 +65,7 @@ export default function ProfileScreen({ navigation }: any) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.formBox}>
+      <View style={styles.profileFormBox}>
         <Text style={styles.title}>Mi Perfil</Text>
 
         <Text>Correo institucional</Text>
@@ -129,6 +129,7 @@ export default function ProfileScreen({ navigation }: any) {
           <>
             <Text>Nueva Contraseña (opcional)</Text>
             <TextInput
+
               value={contraseña}
               onChangeText={setContraseña}
               style={styles.input}
@@ -137,6 +138,7 @@ export default function ProfileScreen({ navigation }: any) {
             />
           </>
         )}
+
 
         <TouchableOpacity
           style={[styles.button, { backgroundColor: editing ? 'green' : '#007bff' }]}

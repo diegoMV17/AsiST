@@ -53,3 +53,18 @@ export async function getTripsByDriverId(driverId: string) {
     throw error;
   }
 }
+
+export async function getAvailableTrips() {
+  try {
+    const response = await fetch(`${API_BASE}/api/trips/status/available`)
+    if (!response.ok){
+      throw new Error('Error al obtener viajes disponibles');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al obtener viajes por disponibilidad:', error);
+    throw error;
+  }
+  
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import styles from '../../styles/styles';
+import globalStyles from '../../styles/styles';
 import { guardarToken } from '../../auth/authService';
 import { loginUser } from '../../api/UserApi';
 import { isValidDomainEmail, validateLogin } from '../../context/AuthContext';
@@ -48,17 +48,17 @@ export default function LoginScreen({ navigation }: any) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.formBox}>
-        <Text style={styles.title}>Iniciar Sesión</Text>
-        {error && <Text style={styles.errorText}>{error}</Text>}
+    <View style={globalStyles.container}>
+      <View style={globalStyles.formBox}>
+        <Text style={globalStyles.title}>Iniciar Sesión</Text>
+        {error && <Text style={globalStyles.errorText}>{error}</Text>}
         <TextInput
           placeholder="Correo institucional"
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
           keyboardType="email-address"
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
         <TextInput
@@ -66,14 +66,14 @@ export default function LoginScreen({ navigation }: any) {
           value={password}
           onChangeText={setPassword}
           secureTextEntry
-          style={styles.input}
+          style={globalStyles.input}
           placeholderTextColor="#999"
         />
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Entrar</Text>
+        <TouchableOpacity style={globalStyles.button} onPress={handleSubmit}>
+          <Text style={globalStyles.buttonText}>Entrar</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.link}>
+          <Text style={globalStyles.link}>
             ¿No tienes cuenta? Regístrate aquí
           </Text>
         </TouchableOpacity>

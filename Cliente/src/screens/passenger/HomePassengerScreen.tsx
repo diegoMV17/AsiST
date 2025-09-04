@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useNavigation, useRoute, NavigationProp, RouteProp } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import styles from "../../styles/styles";
+import globalStyles from "../../styles/styles";
 
 type ParamsType = { nombre?: string };
 
@@ -29,18 +29,18 @@ const HomePassengerScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0f172a" />
 
       <View >
-        <Text style={styles.title}>Panel de Pasajero</Text>
-        <Text style={styles.normalText}>
+        <Text style={globalStyles.title}>Panel de Pasajero</Text>
+        <Text style={globalStyles.normalText}>
           ¡Bienvenido, {nombre}! Has ingresado correctamente como pasajero.
         </Text>
       </View>
 
       <ScrollView
-        contentContainerStyle={styles.formBox}
+        contentContainerStyle={globalStyles.formBox}
         showsVerticalScrollIndicator={false}
       >
         <TouchableOpacity

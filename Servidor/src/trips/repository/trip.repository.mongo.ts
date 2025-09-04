@@ -50,4 +50,7 @@ export class TripRepositoryMongo implements TripRepository{
         ).lean().exec();
         return trip;
     }
+    async getAvailableTrips(): Promise<CreateTripDto[]> {
+        return TripModel.find({ disponible: true }).lean().exec();
+    }
 }

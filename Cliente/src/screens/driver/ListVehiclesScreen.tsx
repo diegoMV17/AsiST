@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, Alert, Platform } from 'react-native';
-import styles from '../../styles/styles';
+import globalStyles from '../../styles/styles';
 import { getUserVehicles, removeVehicleFromUser } from '../../api/UserApi'; // Función para obtener vehículos del usuario
 import { deleteVehicle } from '../../api/VehicleApi'; // Funciones para eliminar vehículos
 import { obtenerToken, obtenerUsuarioDesdeToken } from '../../auth/authService'; // Funciones para obtener token y usuario
@@ -82,36 +82,36 @@ const confirmDelete = (vehicleId: string) => {
 };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Mis Vehículos</Text>
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.title}>Mis Vehículos</Text>
 
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {error && <Text style={globalStyles.errorText}>{error}</Text>}
 
       {loading ? (
-        <Text style={styles.loadingText}>Cargando...</Text>
+        <Text style={globalStyles.loadingText}>Cargando...</Text>
       ) : (
         <FlatList
           data={vehicles}
           renderItem={({ item }) => (
-            <View style={styles.vehicleCard}>
-              <Text style={styles.vehicleTitle}>{item.placa} - {item.marca}</Text>
-              <Text style={styles.vehicleDetails}>Color: {item.color}</Text>
-              <Text style={styles.vehicleDetails}>Modelo: {item.modelo}</Text>
-              <Text style={styles.vehicleDetails}>Capacidad: {item.capacidad}</Text>
+            <View style={globalStyles.vehicleCard}>
+              <Text style={globalStyles.vehicleTitle}>{item.placa} - {item.marca}</Text>
+              <Text style={globalStyles.vehicleDetails}>Color: {item.color}</Text>
+              <Text style={globalStyles.vehicleDetails}>Modelo: {item.modelo}</Text>
+              <Text style={globalStyles.vehicleDetails}>Capacidad: {item.capacidad}</Text>
 
-              <View style={styles.buttonRow}>
+              <View style={globalStyles.buttonRow}>
                 <TouchableOpacity
                   onPress={() => handleEditVehicle(item._id)}
-                  style={[styles.button, styles.editButton]}
+                  style={[globalStyles.button, globalStyles.editButton]}
                 >
-                  <Text style={styles.buttonText}>Editar</Text>
+                  <Text style={globalStyles.buttonText}>Editar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   onPress={() => confirmDelete(item._id)}
-                  style={[styles.button, styles.deleteButton]}
+                  style={[globalStyles.button, globalStyles.deleteButton]}
                 >
-                  <Text style={styles.buttonText}>Eliminar</Text>
+                  <Text style={globalStyles.buttonText}>Eliminar</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -123,10 +123,10 @@ const confirmDelete = (vehicleId: string) => {
 
       {/* Botón para ir a la pantalla de registro de vehículo */}
       <TouchableOpacity
-        style={styles.button}
+        style={globalStyles.button}
         onPress={() => navigation.navigate('RegistrarVehiculo')}
       >
-        <Text style={styles.buttonText}>Registrar Vehículo</Text>
+        <Text style={globalStyles.buttonText}>Registrar Vehículo</Text>
       </TouchableOpacity>
     </View>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert, ActivityIndicator, StyleSheet } from 'react-native';
-import styles from '../styles/styles';
+import globalStyles from '../styles/styles';
 import { getUserRoutes, deleteRoute } from '../api/UserApi';
 
 export default function MisRutasScreen({ route, navigation }: any) {
@@ -51,8 +51,8 @@ export default function MisRutasScreen({ route, navigation }: any) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Mis Rutas</Text>
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.title}>Mis Rutas</Text>
       <FlatList
         data={routes}
         keyExtractor={(item) => item.id.toString()}
@@ -72,10 +72,10 @@ export default function MisRutasScreen({ route, navigation }: any) {
         )}
       />
       <TouchableOpacity
-        style={styles.button}
+        style={globalStyles.button}
         onPress={() => navigation.navigate('CrearRuta', { userId })}
       >
-        <Text style={styles.buttonText}>Crear Nueva Ruta</Text>
+        <Text style={globalStyles.buttonText}>Crear Nueva Ruta</Text>
       </TouchableOpacity>
     </View>
   );

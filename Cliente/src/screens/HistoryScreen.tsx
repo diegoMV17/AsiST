@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
-import styles from '../styles/styles';
+import globalStyles from '../styles/styles';
 import { getUserHistory } from '../api/UserApi';
 
 export default function HistoryScreen({ route }: any) {
@@ -28,8 +28,8 @@ export default function HistoryScreen({ route }: any) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Historial de Viajes</Text>
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.title}>Historial de Viajes</Text>
       <FlatList
         data={history}
         keyExtractor={(item) => item.id.toString()}

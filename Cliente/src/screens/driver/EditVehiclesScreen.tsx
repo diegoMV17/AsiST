@@ -1,7 +1,7 @@
 // EditVehicleScreen.tsx
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import styles from '../../styles/styles';
+import globalStyles from '../../styles/styles';
 import { getVehicleById, updateVehicle } from '../../api/VehicleApi'; // Funciones de API
 import { obtenerToken, obtenerUsuarioDesdeToken } from '../../auth/authService';
 
@@ -73,54 +73,54 @@ export default function EditVehicleScreen({ route, navigation }: any) {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.title}>Editar Vehículo</Text>
+      <View style={globalStyles.container}>
+        <Text style={globalStyles.title}>Editar Vehículo</Text>
 
-        {error && <Text style={styles.errorText}>{error}</Text>}
+        {error && <Text style={globalStyles.errorText}>{error}</Text>}
 
         <TextInput
           placeholder="Placa"
           value={placa}
           onChangeText={setPlaca}
-          style={styles.input}
+          style={globalStyles.input}
         />
         <TextInput
           placeholder="Marca"
           value={marca}
           onChangeText={setMarca}
-          style={styles.input}
+          style={globalStyles.input}
         />
         <TextInput
           placeholder="Número de Serie"
           value={numeroSerie}
           onChangeText={setNumeroSerie}
-          style={styles.input}
+          style={globalStyles.input}
         />
         <TextInput
           placeholder="SOAT"
           value={soat}
           onChangeText={setSoat}
-          style={styles.input}
+          style={globalStyles.input}
         />
         <TextInput
           placeholder="Modelo"
           value={modelo}
           onChangeText={setModelo}
-          style={styles.input}
+          style={globalStyles.input}
         />
 
         {/* Selector de tipo */}
-        <View style={styles.roleSelectorContainer}>
-          <Text style={styles.roleSelectorLabel}>Tipo de vehículo:</Text>
-          <View style={styles.roleSelectorRow}>
+        <View style={globalStyles.roleSelectorContainer}>
+          <Text style={globalStyles.roleSelectorLabel}>Tipo de vehículo:</Text>
+          <View style={globalStyles.roleSelectorRow}>
             {['carro', 'SUV', 'camioneta', 'sedan'].map((r) => (
               <TouchableOpacity
                 key={r}
-                style={[styles.roleSelectorButton, tipo === r && styles.roleSelectorButtonActive]}
+                style={[globalStyles.roleSelectorButton, tipo === r && globalStyles.roleSelectorButtonActive]}
                 onPress={() => setTipo(r as any)}
               >
                 <Text
-                  style={[styles.roleSelectorButtonText, tipo === r && styles.roleSelectorButtonTextActive]}
+                  style={[globalStyles.roleSelectorButtonText, tipo === r && globalStyles.roleSelectorButtonTextActive]}
                 >
                   {r.charAt(0).toUpperCase() + r.slice(1)}
                 </Text>
@@ -133,22 +133,22 @@ export default function EditVehicleScreen({ route, navigation }: any) {
           placeholder="Color"
           value={color}
           onChangeText={setColor}
-          style={styles.input}
+          style={globalStyles.input}
         />
         <TextInput
           placeholder="Capacidad"
           value={capacidad}
           onChangeText={setCapacidad}
-          style={styles.input}
+          style={globalStyles.input}
           keyboardType="numeric"
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleEditVehicle}>
-          <Text style={styles.buttonText}>Actualizar Vehículo</Text>
+        <TouchableOpacity style={globalStyles.button} onPress={handleEditVehicle}>
+          <Text style={globalStyles.buttonText}>Actualizar Vehículo</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.link}>Volver</Text>
+          <Text style={globalStyles.link}>Volver</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

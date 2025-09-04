@@ -7,12 +7,13 @@ const colors = {
     inputBorder: '#E0E0E0',
     textPrimary: '#1F2937',
     textSecondary: '#6B7280',
+    textLight: "#e2e8f0",
     error: '#DC2626',
     cardBackground: '#FFFFFF',
     shadow: '#000000',
 };
 
-const styles = StyleSheet.create({
+const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
@@ -35,12 +36,36 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
+     profileFormBox: {
+        width: '95%',
+        maxWidth: 700, // antes 400
+        backgroundColor: colors.cardBackground,
+        borderRadius: 30, // antes 16
+        padding: 48,      // antes 24
+        shadowColor: colors.shadow,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 12, // antes 8
+        elevation: 8,     // antes 4
+        alignItems: 'center',
+        marginTop: 60,    // antes 20
+        marginBottom: 60, // antes 20
+    },
+
     title: {
-        fontSize: 26,
-        marginBottom: 12,
-        fontWeight: '700',
-        color: colors.primary,
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#1e3a8a',
+        marginBottom: 16,
         textAlign: 'center',
+    },
+
+    mainTitle: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#2563eb',
+        textAlign: 'center',
+        marginBottom: 8,
     },
 
     subtitle: {
@@ -60,15 +85,15 @@ const styles = StyleSheet.create({
     },
 
     input: {
+        backgroundColor: '#fff',
+        borderColor: '#e5e7eb',
         borderWidth: 1,
-        borderColor: colors.inputBorder,
-        marginBottom: 12,
-        padding: 12,
         borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
         fontSize: 16,
-        color: colors.textPrimary,
-        backgroundColor: '#FFFFFF',
-        width: '100%',
+        marginBottom: 10,
+        color: '#1e293b',
     },
 
     link: {
@@ -96,6 +121,40 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: '600',
         fontSize: 16,
+    },
+    primaryButton: {
+        backgroundColor: "#1e3a8a",
+        paddingVertical: 14,
+        paddingHorizontal: 32,
+        borderRadius: 8,
+        width: "100%",
+        alignItems: "center",
+    },
+    primaryButtonText: {
+        color: "#ffffff",
+        fontSize: 16,
+        fontWeight: "600",
+    },
+    secondaryButton: {
+        backgroundColor: "transparent",
+        borderWidth: 2,
+        borderColor: "#1e3a8a",
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 8,
+        width: "100%",
+        alignItems: "center",
+    },
+    secondaryButtonText: {
+        color: "#1e3a8a",
+        fontSize: 16,
+        fontWeight: "600",
+    },
+    successButton: {
+        backgroundColor: "#27ae60", // verde éxito
+    },
+    dangerButton: {
+        backgroundColor: "#c0392b", // rojo error
     },
 
     errorText: {
@@ -244,8 +303,129 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: colors.textPrimary,
         marginBottom: 6,
-    }
+    },
+    card: {
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        padding: 16,
+        marginVertical: 8,
+        marginHorizontal: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
+    },
+    cardTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 4,
+        color: '#0f172a',
+    },
+    cardText: {
+        fontSize: 15,
+        marginBottom: 2,
+        color: '#334155',
+    },
 
+    headerSection: {
+        backgroundColor: colors.primary, // ya tienes este color definido
+        paddingVertical: 20,
+        paddingHorizontal: 20,
+        alignItems: "center",
+        marginBottom: 20,
+    },
+    headerImage: {
+        width: "100%",
+        height: 200,
+        marginBottom: 12,
+        borderRadius: 12,
+    },
+    secondSubtitle: {
+        fontSize: 18,
+        color: colors.textLight,
+        marginBottom: 4,
+    },
+    universityName: {
+        fontSize: 16,
+        color: colors.textSecondary,
+        fontStyle: "italic",
+    },
+    welcomeText: {
+        fontSize: 16,
+        lineHeight: 24,
+        color: "#374151",
+        textAlign: "center",
+        fontWeight: "500",
+    },
+    section: {
+        backgroundColor: "#ffffff",
+        marginHorizontal: 16,
+        marginBottom: 16,
+        padding: 20,
+        borderRadius: 12,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    footer: {
+        backgroundColor: "#f3f4f6",
+        paddingVertical: 24,
+        paddingHorizontal: 20,
+        alignItems: "center",
+        marginTop: 20,
+    },
+    footerText: {
+        fontSize: 14,
+        color: "#374151",
+        fontWeight: "500",
+        marginBottom: 4,
+    },
+    footerSubtext: {
+        fontSize: 12,
+        color: "#6b7280",
+        marginBottom: 8,
+    },
+    versionText: {
+        fontSize: 10,
+        color: "#9ca3af",
+    },
+    ctaSection: {
+        backgroundColor: "#ffffff",
+        marginHorizontal: 16,
+        marginBottom: 16,
+        padding: 24,
+        borderRadius: 12,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    ctaTitle: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#1f2937",
+        marginBottom: 12,
+        textAlign: "center",
+    },
+    ctaText: {
+        fontSize: 15,
+        color: "#4b5563",
+        textAlign: "center",
+        lineHeight: 22,
+    },
+    email: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+    role: { color: '#fff', fontSize: 14, marginTop: 4 },
 });
 
-export default styles;
+export default globalStyles;
