@@ -148,7 +148,7 @@ const HomeScreen = ({ navigation }: any) => {
         >
           <Text style={styles.secondaryButtonText}>Crear Cuenta Nueva</Text>
         </TouchableOpacity>
-      
+      </View>
 
       {/* Footer */}
       <View style={styles.footer}>
