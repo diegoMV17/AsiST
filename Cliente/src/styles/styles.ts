@@ -94,6 +94,7 @@ const globalStyles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 10,
         color: '#1e293b',
+        width: '100%',
     },
 
     link: {
