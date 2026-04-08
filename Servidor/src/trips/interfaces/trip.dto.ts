@@ -24,3 +24,13 @@ export interface UpdateTripDto {
     disponible?:boolean;
     passengers?: Types.ObjectId[];
 }
+export interface TripResponseDto {
+  _id: string;
+  origen: string;
+  destino: string;
+  fecha: string;
+  hora: string;
+  descripcion?: string;
+  cupos_disponibles: number;
+  placa?: string; // Solo la placa del vehículo
+}

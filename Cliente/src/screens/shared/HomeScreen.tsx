@@ -1,385 +1,342 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet,Image, ImageBackground } from "react-native"
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, ImageBackground } from "react-native"
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import globalStyles from '../../styles/styles';
 
 const HomeScreen = ({ navigation }: any) => {
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <ImageBackground
-        source={require("../../../assets/AsiSTU.png")}
-        style={styles.headerImage}
-        imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}
-        resizeMode="cover"
+    <View style={styles.screen}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
       >
-        <View style={styles.overlay}>
-          <Text style={styles.mainTitle}>AisteU</Text>
-          <Text style={styles.subtitle}>Sistema de Viajes Compartidos</Text>
-          <Text style={styles.universityName}>Universidad Santo Tomás</Text>
-        </View>
-      </ImageBackground>
 
-      {/* Welcome Section */}
-      <View style={styles.section}>
-        <Text style={styles.welcomeText}>
-          Bienvenido a la plataforma oficial de movilidad colaborativa de la Universidad Santo Tomás. 
-          AisteU conecta a nuestra comunidad universitaria para optimizar los desplazamientos diarios 
-          de manera segura, económica y sostenible.
-        </Text>
-      </View>
-
-
-      {/* Mission Section */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Nuestra Misión</Text>
-        <Text style={styles.bodyText}>
-          Facilitar la movilidad de estudiantes, docentes y personal administrativo mediante un sistema de viajes
-          compartidos que promueva la sostenibilidad, reduzca costos de transporte y fortalezca los vínculos
-          comunitarios dentro de nuestra institución.
-        </Text>
-      </View>
-
-      {/* Benefits Section */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Beneficios Principales</Text>
-        <View style={styles.benefitsList}>
-          <View style={styles.benefitItem}>
-            <Text style={styles.benefitIcon}>💰</Text>
-            <View style={styles.benefitContent}>
-              <Text style={styles.benefitTitle}>Ahorro Económico</Text>
-              <Text style={styles.benefitDescription}>
-                Reduce significativamente los costos de transporte compartiendo gastos de combustible y peajes.
-              </Text>
+        {/* ── Hero ── */}
+        <ImageBackground
+          source={require("../../../assets/AsiSTU.png")}
+          style={styles.heroImage}
+          imageStyle={{ borderBottomLeftRadius: 24, borderBottomRightRadius: 24 }}
+          resizeMode="cover"
+        >
+          <View style={styles.heroOverlay}>
+            <View style={styles.heroBadge}>
+              <Icon name="car-multiple" size={14} color="#bfdbfe" />
+              <Text style={styles.heroBadgeText}>Universidad Santo Tomás</Text>
             </View>
+            <Text style={styles.heroTitle}>AisteU</Text>
+            <Text style={styles.heroSubtitle}>Sistema de Viajes Compartidos</Text>
+            <Text style={styles.heroTagline}>Movilidad colaborativa para la comunidad tomasina</Text>
           </View>
+        </ImageBackground>
 
-          <View style={styles.benefitItem}>
-            <Text style={styles.benefitIcon}>🌱</Text>
-            <View style={styles.benefitContent}>
-              <Text style={styles.benefitTitle}>Impacto Ambiental</Text>
-              <Text style={styles.benefitDescription}>
-                Contribuye a la reducción de emisiones de CO₂ y al cuidado del medio ambiente.
-              </Text>
-            </View>
+        {/* ── Stats rápidas ── */}
+        <View style={styles.statsRow}>
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>+200</Text>
+            <Text style={styles.statLabel}>Usuarios</Text>
           </View>
-
-          <View style={styles.benefitItem}>
-            <Text style={styles.benefitIcon}>🤝</Text>
-            <View style={styles.benefitContent}>
-              <Text style={styles.benefitTitle}>Comunidad</Text>
-              <Text style={styles.benefitDescription}>
-                Fortalece las relaciones interpersonales dentro de la comunidad tomasina.
-              </Text>
-            </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>+500</Text>
+            <Text style={styles.statLabel}>Viajes</Text>
           </View>
-
-          <View style={styles.benefitItem}>
-            <Text style={styles.benefitIcon}>⏰</Text>
-            <View style={styles.benefitContent}>
-              <Text style={styles.benefitTitle}>Optimización de Tiempo</Text>
-              <Text style={styles.benefitDescription}>
-                Coordina horarios y rutas para maximizar la eficiencia en tus desplazamientos.
-              </Text>
-            </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>-40%</Text>
+            <Text style={styles.statLabel}>Emisiones CO₂</Text>
           </View>
         </View>
-      </View>
 
-      {/* Target Audience */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>¿Quién Puede Participar?</Text>
-        <View style={styles.audienceContainer}>
-          <View style={styles.audienceItem}>
-            <Text style={styles.audienceIcon}>🎓</Text>
-            <Text style={styles.audienceText}>Estudiantes de pregrado y posgrado</Text>
-          </View>
-          <View style={styles.audienceItem}>
-            <Text style={styles.audienceIcon}>👨‍🏫</Text>
-            <Text style={styles.audienceText}>Docentes y catedráticos</Text>
-          </View>
-          <View style={styles.audienceItem}>
-            <Text style={styles.audienceIcon}>👥</Text>
-            <Text style={styles.audienceText}>Personal administrativo</Text>
+        {/* ── Bienvenida ── */}
+        <View style={globalStyles.section}>
+          <Text style={globalStyles.subtitle}>¿Qué es AisteU?</Text>
+          <Text style={globalStyles.normalText}>
+            La plataforma oficial de movilidad colaborativa de la Universidad Santo Tomás.
+            Conectamos a nuestra comunidad universitaria para optimizar los desplazamientos
+            diarios de manera segura, económica y sostenible.
+          </Text>
+        </View>
+
+        {/* ── Beneficios ── */}
+        <View style={globalStyles.section}>
+          <Text style={globalStyles.subtitle}>Beneficios Principales</Text>
+          <View style={globalStyles.benefitsList}>
+            {[
+              { icon: 'cash-multiple',       color: '#16a34a', bg: '#f0fdf4', title: 'Ahorro Económico',       desc: 'Reduce costos de transporte compartiendo gastos de combustible y peajes.' },
+              { icon: 'leaf',                color: '#0891b2', bg: '#ecfeff', title: 'Impacto Ambiental',      desc: 'Contribuye a la reducción de emisiones de CO₂ y al cuidado del medio ambiente.' },
+              { icon: 'account-group',       color: '#7c3aed', bg: '#f5f3ff', title: 'Comunidad',             desc: 'Fortalece relaciones interpersonales dentro de la comunidad tomasina.' },
+              { icon: 'clock-fast',          color: '#ca8a04', bg: '#fefce8', title: 'Optimización de Tiempo', desc: 'Coordina horarios y rutas para maximizar la eficiencia en tus desplazamientos.' },
+            ].map((b, i) => (
+              <View key={i} style={globalStyles.benefitItem}>
+                <View style={[styles.benefitIconBox, { backgroundColor: b.bg }]}>
+                  <Icon name={b.icon as any} size={22} color={b.color} />
+                </View>
+                <View style={globalStyles.benefitContent}>
+                  <Text style={globalStyles.benefitTitle}>{b.title}</Text>
+                  <Text style={globalStyles.benefitDescription}>{b.desc}</Text>
+                </View>
+              </View>
+            ))}
           </View>
         </View>
-        <Text style={styles.requirementText}>* Requiere correo institucional activo (@ustadistancia.edu.co)</Text>
-      </View>
 
-      {/* Features Section */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Funcionalidades Principales</Text>
-        <View style={styles.featuresList}>
-          <Text style={styles.featureItem}>🔐 Autenticación segura con correo institucional</Text>
-          <Text style={styles.featureItem}>🚗 Registro como conductor, pasajero o ambos roles</Text>
-          <Text style={styles.featureItem}>🗺️ Creación y gestión de rutas personalizadas</Text>
-          <Text style={styles.featureItem}>📍 Geolocalización y puntos de encuentro</Text>
-          <Text style={styles.featureItem}>⭐ Sistema de calificaciones y reputación</Text>
-          <Text style={styles.featureItem}>📱 Notificaciones en tiempo real</Text>
-          <Text style={styles.featureItem}>📊 Historial completo de viajes</Text>
-          <Text style={styles.featureItem}>💬 Chat integrado para coordinación</Text>
+        {/* ── ¿Quién puede participar? ── */}
+        <View style={globalStyles.section}>
+          <Text style={globalStyles.subtitle}>¿Quién Puede Participar?</Text>
+          <View style={globalStyles.audienceContainer}>
+            {[
+              { icon: 'school',        label: 'Estudiantes de pregrado y posgrado' },
+              { icon: 'teach',         label: 'Docentes y catedráticos' },
+              { icon: 'briefcase',     label: 'Personal administrativo' },
+            ].map((a, i) => (
+              <View key={i} style={globalStyles.audienceItem}>
+                <Icon name={a.icon as any} size={22} color="#00205B" style={{ marginRight: 10 }} />
+                <Text style={globalStyles.audienceText}>{a.label}</Text>
+              </View>
+            ))}
+          </View>
+          <Text style={globalStyles.requirementText}>
+            * Requiere correo institucional activo (@ustadistancia.edu.co)
+          </Text>
         </View>
-      </View>
 
-      {/* Security Section */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Seguridad y Confianza</Text>
-        <Text style={styles.bodyText}>
-          AisteU implementa medidas de seguridad robustas para garantizar la confianza entre usuarios. Todos los
-          participantes deben verificar su identidad con correo institucional, y contamos con un sistema de
-          calificaciones que promueve comportamientos responsables y seguros.
-        </Text>
-      </View>
+        {/* ── Funcionalidades ── */}
+        <View style={globalStyles.section}>
+          <Text style={globalStyles.subtitle}>Funcionalidades Principales</Text>
+          <View style={styles.featureGrid}>
+            {[
+              { icon: 'shield-lock-outline',    label: 'Autenticación segura' },
+              { icon: 'car-outline',             label: 'Registro conductor / pasajero' },
+              { icon: 'map-outline',             label: 'Rutas personalizadas' },
+              { icon: 'map-marker-outline',      label: 'Puntos de encuentro' },
+              { icon: 'star-outline',            label: 'Calificaciones y reputación' },
+              { icon: 'bell-outline',            label: 'Notificaciones en tiempo real' },
+              { icon: 'history',                 label: 'Historial de viajes' },
+              { icon: 'chat-outline',            label: 'Chat integrado' },
+            ].map((f, i) => (
+              <View key={i} style={styles.featureItem}>
+                <View style={styles.featureIconBox}>
+                  <Icon name={f.icon as any} size={20} color="#00205B" />
+                </View>
+                <Text style={styles.featureLabel}>{f.label}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
 
-      {/* CTA Section */}
-      <View style={styles.ctaSection}>
-        <Text style={styles.ctaTitle}>Únete a la Comunidad AisteU</Text>
-        <Text style={styles.ctaText}>
-          Comienza a disfrutar de los beneficios de la movilidad colaborativa. Si ya tienes una cuenta, inicia sesión.
-          Si eres nuevo, regístrate y forma parte del cambio.
-        </Text>
+        {/* ── Seguridad ── */}
+        <View style={[globalStyles.section, styles.securitySection]}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+            <Icon name="shield-check" size={22} color="#00205B" />
+            <Text style={globalStyles.subtitle}>Seguridad y Confianza</Text>
+          </View>
+          <Text style={globalStyles.normalText}>
+            AisteU implementa medidas de seguridad robustas. Todos los participantes verifican
+            su identidad con correo institucional, y el sistema de calificaciones promueve
+            comportamientos responsables y seguros.
+          </Text>
+        </View>
 
+        {/* ── Footer ── */}
+        <View style={globalStyles.footer}>
+          <Icon name="car-multiple" size={24} color="#9ca3af" />
+          <Text style={[globalStyles.footerText, { marginTop: 8 }]}>
+            © {new Date().getFullYear()} Universidad Santo Tomás
+          </Text>
+          <Text style={globalStyles.footerSubtext}>AisteU — Sistema de Viajes Compartidos</Text>
+          <Text style={globalStyles.versionText}>Versión 2.0</Text>
+        </View>
+
+      </ScrollView>
+
+      {/* ── Botones fijos — sin cambios ── */}
+      <View style={styles.bottomButtons}>
         <TouchableOpacity
-          style={[styles.primaryButton, { marginTop: 20 }]}
+          style={globalStyles.primaryButton}
           onPress={() => navigation.navigate("Login")}
         >
-          <Text style={styles.primaryButtonText}>Iniciar Sesión</Text>
+          <Text style={globalStyles.primaryButtonText}>Iniciar Sesión</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.secondaryButton, { marginTop: 12 }]}
+          style={[globalStyles.secondaryButton, { marginTop: 10 }]}
           onPress={() => navigation.navigate("Register")}
         >
-          <Text style={styles.secondaryButtonText}>Crear Cuenta Nueva</Text>
+          <Text style={globalStyles.secondaryButtonText}>Crear Cuenta Nueva</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>© {new Date().getFullYear()} Universidad Santo Tomás</Text>
-        <Text style={styles.footerSubtext}>AisteU - Sistema de Viajes Compartidos</Text>
-        <Text style={styles.versionText}>Versión 2.0</Text>
-      </View>
-    </ScrollView>
-  )
-}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    backgroundColor: "#f8f9fa",
+    backgroundColor: '#F5F7FA',
   },
-  headerSection: {
-    backgroundColor: "#1e3a8a",
-    paddingVertical: 40,
+  scroll: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 148,
+  },
+
+  // Hero
+  heroImage: {
+    width: '100%',
+    height: 280,
+  },
+  heroOverlay: {
+    backgroundColor: 'rgba(0, 32, 91, 0.65)',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
     paddingHorizontal: 20,
-    alignItems: "center",
-    marginBottom: 20,
   },
-    headerImage: {
-    width: "100%",
-    height: 220,
-    justifyContent: "center",
-    alignItems: "center",
+  heroBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderRadius: 20,
+    marginBottom: 12,
   },
-  mainTitle: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: "#ffffff",
+  heroBadgeText: {
+    color: '#bfdbfe',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  heroTitle: {
+    fontSize: 42,
+    fontWeight: 'bold',
+    color: '#fff',
+    letterSpacing: 1,
+  },
+  heroSubtitle: {
+    fontSize: 16,
+    color: '#e2e8f0',
+    marginTop: 4,
+    fontWeight: '500',
+  },
+  heroTagline: {
+    fontSize: 13,
+    color: '#93c5fd',
+    marginTop: 8,
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+
+  // Stats
+  statsRow: {
+    flexDirection: 'row',
+    backgroundColor: '#00205B',
+    marginHorizontal: 16,
+    marginTop: -20,
+    borderRadius: 14,
+    paddingVertical: 14,
+    paddingHorizontal: 10,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    zIndex: 1,
     marginBottom: 8,
   },
-  subtitle: {
-    fontSize: 18,
-    color: "#e2e8f0",
-    marginBottom: 4,
+  statItem: {
+    flex: 1,
+    alignItems: 'center',
   },
-  universityName: {
-    fontSize: 16,
-    color: "#cbd5e1",
-    fontStyle: "italic",
+  statNumber: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
-  section: {
-    backgroundColor: "#ffffff",
-    marginHorizontal: 16,
-    marginBottom: 16,
-    padding: 20,
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  welcomeText: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: "#374151",
-    textAlign: "center",
-    fontWeight: "500",
-  },
-  sectionTitle: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: "#1f2937",
-    marginBottom: 16,
-    textAlign: "center",
-  },
-  bodyText: {
-    fontSize: 15,
-    lineHeight: 22,
-    color: "#4b5563",
-    textAlign: "justify",
-  },
-  benefitsList: {
-    gap: 16,
-  },
-  benefitItem: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-  },
-  benefitIcon: {
-    fontSize: 24,
-    marginRight: 12,
+  statLabel: {
+    color: '#93c5fd',
+    fontSize: 11,
     marginTop: 2,
   },
-  benefitContent: {
-    flex: 1,
+  statDivider: {
+    width: 1,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    marginVertical: 4,
   },
-  benefitTitle: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#1f2937",
-    marginBottom: 4,
+
+  // Beneficios
+  benefitIconBox: {
+    width: 44,
+    height: 44,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 14,
+    flexShrink: 0,
   },
-  benefitDescription: {
-    fontSize: 14,
-    color: "#6b7280",
-    lineHeight: 20,
-  },
-  audienceContainer: {
-    gap: 12,
-    marginBottom: 16,
-  },
-  audienceItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f3f4f6",
-    padding: 12,
-    borderRadius: 8,
-  },
-  audienceIcon: {
-    fontSize: 20,
-    marginRight: 12,
-  },
-  audienceText: {
-    fontSize: 15,
-    color: "#374151",
-    fontWeight: "500",
-  },
-  requirementText: {
-    fontSize: 12,
-    color: "#6b7280",
-    fontStyle: "italic",
-    textAlign: "center",
-  },
-  featuresList: {
-    gap: 8,
+
+  // Funcionalidades grid
+  featureGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
   },
   featureItem: {
-    fontSize: 15,
-    color: "#374151",
-    lineHeight: 22,
-    paddingVertical: 4,
+    width: '47%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: '#f8fafc',
+    borderRadius: 10,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
   },
-  ctaSection: {
-    backgroundColor: "#ffffff",
-    marginHorizontal: 16,
-    marginBottom: 16,
-    padding: 24,
-    borderRadius: 12,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  ctaTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#1f2937",
-    marginBottom: 12,
-    textAlign: "center",
-  },
-  ctaText: {
-    fontSize: 15,
-    color: "#4b5563",
-    textAlign: "center",
-    lineHeight: 22,
-  },
-  primaryButton: {
-    backgroundColor: "#1e3a8a",
-    paddingVertical: 14,
-    paddingHorizontal: 32,
+  featureIconBox: {
+    width: 34,
+    height: 34,
     borderRadius: 8,
-    width: "100%",
-    alignItems: "center",
+    backgroundColor: '#eff6ff',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  primaryButtonText: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  secondaryButton: {
-    backgroundColor: "transparent",
-    borderWidth: 2,
-    borderColor: "#1e3a8a",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 8,
-    width: "100%",
-    alignItems: "center",
-  },
-  secondaryButtonText: {
-    color: "#1e3a8a",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  footer: {
-    backgroundColor: "#f3f4f6",
-    paddingVertical: 24,
-    paddingHorizontal: 20,
-    alignItems: "center",
-    marginTop: 20,
-  },
-  footerText: {
-    fontSize: 14,
-    color: "#374151",
-    fontWeight: "500",
-    marginBottom: 4,
-  },
-  footerSubtext: {
+  featureLabel: {
+    flex: 1,
     fontSize: 12,
-    color: "#6b7280",
-    marginBottom: 8,
+    color: '#374151',
+    fontWeight: '500',
+    lineHeight: 16,
   },
-  versionText: {
-    fontSize: 10,
-    color: "#9ca3af",
-  },
-  overlay: {
-    backgroundColor: "rgba(30, 58, 138, 0.55)", // azul oscuro con transparencia
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    paddingHorizontal: 16,
-  },
-  
-})
 
-export default HomeScreen
+  // Seguridad
+  securitySection: {
+    borderLeftWidth: 4,
+    borderLeftColor: '#00205B',
+  },
+
+  // Botones fijos
+  bottomButtons: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#ffffff',
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 24,
+    borderTopWidth: 1,
+    borderTopColor: '#e5e7eb',
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+  },
+});
+
+export default HomeScreen;

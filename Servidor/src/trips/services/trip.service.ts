@@ -1,4 +1,4 @@
-import { CreateTripDto, UpdateTripDto } from "../interfaces/trip.dto";
+import { CreateTripDto, TripResponseDto, UpdateTripDto } from "../interfaces/trip.dto";
 import { TripRepository } from "../interfaces/trip.repository";
 
 export class TripService {
@@ -18,7 +18,7 @@ export class TripService {
     async deleteTrip(id: string): Promise<void> {
         return this.tripRepository.deleteTrip(id);
     }
-    async getTripsByDriverId(driverId: string): Promise<CreateTripDto[]> {
+    async getTripsByDriverId(driverId: string): Promise<TripResponseDto[]> {
         return this.tripRepository.getTripsByDriverId(driverId);
     }
     async getTripsByVehicleId(vehicleId: string): Promise<CreateTripDto[]> {

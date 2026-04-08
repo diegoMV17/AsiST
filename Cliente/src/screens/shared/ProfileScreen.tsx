@@ -3,6 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView } from 'reac
 import styles from '../../styles/styles';
 import { cerrarSesion, obtenerUsuarioDesdeToken, obtenerToken } from '../../auth/authService';
 import { getUserData } from '../../api/UserApi';
+import { Image } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function ProfileScreen({ navigation }: any) {
   const [user, setUser] = useState<any>(null);
@@ -16,7 +18,6 @@ export default function ProfileScreen({ navigation }: any) {
   const [ciudad, setCiudad] = useState('');
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
-  const [rol, setRol] = useState('');
 
   useEffect(() => {
     const cargarUsuario = async () => {
@@ -36,7 +37,6 @@ export default function ProfileScreen({ navigation }: any) {
             setFechaNacimiento(response.fechaNacimiento || '');
             setCiudad(response.ciudad || '');
             setCorreo(response.correo || '');
-            setRol(response.rol || '');
           }
         } catch (error) {
           console.error('Error al obtener datos del usuario', error);
@@ -67,12 +67,19 @@ export default function ProfileScreen({ navigation }: any) {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.profileFormBox}>
         <Text style={styles.title}>Mi Perfil</Text>
+        <View style={styles.avatarContainer}>
+          <Image
+            source={require('../../../assets/DefaultImage.png')} // cambia por el nombre real
+            style={styles.avatar}
+          />
+          <View style={styles.ratingBadge}>
+            <Icon name="star" size={14} color="#fbbf24" />
+            <Text style={styles.ratingBadgeText}>4.99</Text>
+          </View>
+        </View>
 
         <Text>Correo institucional</Text>
         <Text>{correo}</Text>
-
-        <Text>Rol</Text>
-        <Text>{rol}</Text>
 
         <Text>Nombre</Text>
         <TextInput

@@ -1,4 +1,4 @@
-import { CreateTripDto, UpdateTripDto } from "./trip.dto";
+import { CreateTripDto, TripResponseDto, UpdateTripDto } from "./trip.dto";
 
 
 export interface TripRepository {
@@ -7,7 +7,7 @@ export interface TripRepository {
     getTripById: (id: string) => Promise<CreateTripDto | null>;
     updateTrip: (id: string, data: UpdateTripDto) => Promise<CreateTripDto | null>;
     deleteTrip: (id: string) => Promise<void>;
-    getTripsByDriverId: (driverId: string) => Promise<CreateTripDto[]>;
+    getTripsByDriverId: (driverId: string) => Promise<TripResponseDto[]>;
     getTripsByVehicleId: (vehicleId: string) => Promise<CreateTripDto[]>;
     addPassengerToTrip: (tripId: string, passengerId: string) => Promise<CreateTripDto | null>;
     removePassengerFromTrip: (tripId: string, passengerId: string) => Promise<CreateTripDto | null>;
