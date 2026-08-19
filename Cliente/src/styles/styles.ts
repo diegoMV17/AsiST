@@ -36,7 +36,7 @@ const globalStyles = StyleSheet.create({
         alignItems: 'center',
     },
 
-     profileFormBox: {
+    profileFormBox: {
         width: '95%',
         maxWidth: 700, // antes 400
         backgroundColor: colors.cardBackground,
@@ -94,6 +94,7 @@ const globalStyles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 10,
         color: '#1e293b',
+        width: '100%',
     },
 
     link: {
@@ -115,6 +116,16 @@ const globalStyles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 2,
+    },
+    fixedButtonsContainer: {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: "#ffffff",
+        padding: 16,
+        borderTopWidth: 1,
+        borderTopColor: "#e5e7eb",
     },
 
     buttonText: {
@@ -426,6 +437,112 @@ const globalStyles = StyleSheet.create({
     },
     email: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
     role: { color: '#fff', fontSize: 14, marginTop: 4 },
+    benefitsList: {
+    gap: 16,
+  },
+  benefitItem: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
+  benefitIcon: {
+    fontSize: 24,
+    marginRight: 12,
+    marginTop: 2,
+  },
+  benefitContent: {
+    flex: 1,
+  },
+  benefitTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#1f2937",
+    marginBottom: 4,
+  },
+  benefitDescription: {
+    fontSize: 14,
+    color: "#6b7280",
+    lineHeight: 20,
+  },
+   audienceContainer: {
+    gap: 12,
+    marginBottom: 16,
+  },
+  audienceItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f3f4f6",
+    padding: 12,
+    borderRadius: 8,
+  },
+  audienceIcon: {
+    fontSize: 20,
+    marginRight: 12,
+  },
+  audienceText: {
+    fontSize: 15,
+    color: "#374151",
+    fontWeight: "500",
+  },
+    overlay: {
+    backgroundColor: "rgba(30, 58, 138, 0.55)", // azul oscuro con transparencia
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    paddingHorizontal: 16,
+  },
+  requirementText: {
+    fontSize: 12,
+    color: "#6b7280",
+    fontStyle: "italic",
+    textAlign: "center",
+  },
+  featuresList: {
+    gap: 8,
+  },
+  featureItem: {
+    fontSize: 15,
+    color: "#374151",
+    lineHeight: 22,
+    paddingVertical: 4,
+  },
+  avatarContainer: {
+  alignItems: 'center',
+  marginBottom: 20,
+},
+
+avatar: {
+  width: 120,
+  height: 120,
+  borderRadius: 60, // la mitad del width/height
+  borderWidth: 3,
+  borderColor: '#1e3a8a', // azul institucional
+},
+ratingBadge: {
+  position: 'absolute',
+  top: 6,
+  right: 6,
+  backgroundColor: 'white',
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingHorizontal: 6,
+  paddingVertical: 2,
+  borderRadius: 12,
+  elevation: 3, // sombra Android
+  shadowColor: '#000', // sombra iOS
+  shadowOffset: { width: 0, height: 1 },
+  shadowOpacity: 0.2,
+  shadowRadius: 2,
+},
+
+ratingBadgeText: {
+  marginLeft: 4,
+  fontWeight: '700',
+  fontSize: 12,
+  color: '#111827',
+},
 });
 
 export default globalStyles;

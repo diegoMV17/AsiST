@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HomePassengerScreen from '../../screens/passenger/HomePassengerScreen';
 import ProfileScreen from '../../screens/shared/ProfileScreen';
 import TripAviableScreen from '../../screens/passenger/TripAviableScreen';
+import PassengerTripHistoryScreen from '../../screens/passenger/HistoryPassengerScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -30,6 +31,7 @@ const PassengerTabs = () => {
             })}>
             <Tab.Screen name="HomePassenger" component={HomePassengerScreen} />
             <Tab.Screen name="Viajes Disponibles" component={TripAviableScreen} />
+            <Tab.Screen name="Historial de Viajes" component={PassengerTripHistoryScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
     );

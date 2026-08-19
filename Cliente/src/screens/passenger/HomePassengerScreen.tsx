@@ -3,9 +3,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Alert,
   StatusBar,
   ScrollView,
+  StyleSheet,
 } from "react-native";
 import { useNavigation, useRoute, NavigationProp, RouteProp } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -18,47 +18,258 @@ const HomePassengerScreen = () => {
   const route = useRoute<RouteProp<Record<string, ParamsType>, string>>();
   const nombre = route.params?.nombre || "Pasajero";
 
-  const goToRutasDisponibles = () => {
-    Alert.alert("Rutas", "Aquí se mostrarán las rutas disponibles.");
-    // navigation.navigate('RutasDisponiblesScreen');
-  };
-
-  const goToHistorial = () => {
-    Alert.alert("Historial", "Aquí se mostrará tu historial de viajes.");
-    // navigation.navigate('HistorialPasajeroScreen');
-  };
-
   return (
-    <View style={globalStyles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#0f172a" />
+    <ScrollView style={{ flex: 1, backgroundColor: "#F5F7FA" }}>
+      <StatusBar barStyle="light-content" backgroundColor="#00205B" />
 
-      <View >
-        <Text style={globalStyles.title}>Panel de Pasajero</Text>
-        <Text style={globalStyles.normalText}>
-          ¡Bienvenido, {nombre}! Has ingresado correctamente como pasajero.
-        </Text>
+      {/* ── Header ── */}
+      <View style={styles.header}>
+        <View style={styles.avatarCircle}>
+          <Text style={styles.avatarInitial}>{nombre.charAt(0).toUpperCase()}</Text>
+        </View>
+        <Text style={styles.welcomeLabel}>Bienvenido de nuevo</Text>
+        <Text style={styles.userName}>{nombre}</Text>
+        <View style={styles.roleBadge}>
+          <Icon name="seat-passenger" size={14} color="#bfdbfe" />
+          <Text style={styles.roleText}>Pasajero</Text>
+        </View>
       </View>
 
-      <ScrollView
-        contentContainerStyle={globalStyles.formBox}
-        showsVerticalScrollIndicator={false}
-      >
+      <View style={{ padding: 20 }}>
+
+        <Text style={styles.sectionLabel}>¿Qué quieres hacer?</Text>
+
+        {/* ── Card: Ver viajes disponibles ── */}
         <TouchableOpacity
-          onPress={goToRutasDisponibles}
+          style={styles.actionCard}
+          onPress={() => navigation.navigate('TripAviableScreen')}
+          activeOpacity={0.85}
         >
-          <Icon name="map-search" size={24} color="#fff" />
-          <Text>Ver Rutas Disponibles</Text>
+          <View style={[styles.iconBox, { backgroundColor: '#eff6ff' }]}>
+            <Icon name="map-search-outline" size={32} color="#1d4ed8" />
+          </View>
+          <View style={styles.cardInfo}>
+            <Text style={styles.cardActionTitle}>Ver Viajes Disponibles</Text>
+            <Text style={styles.cardActionSubtitle}>Explora los viajes activos en Boyacá</Text>
+          </View>
+          <Icon name="chevron-right" size={22} color="#94a3b8" />
         </TouchableOpacity>
 
+        {/* ── Card: Postular a un viaje ── */}
         <TouchableOpacity
-          onPress={goToHistorial}
+          style={[styles.actionCard, styles.actionCardAccent]}
+          onPress={() => navigation.navigate('TripAviableScreen')}
+          activeOpacity={0.85}
         >
-          <Icon name="history" size={24} color="#fff" />
-          <Text>Historial de Viajes</Text>
+          <View style={[styles.iconBox, { backgroundColor: '#f0fdf4' }]}>
+            <Icon name="hand-back-right-outline" size={32} color="#16a34a" />
+          </View>
+          <View style={styles.cardInfo}>
+            <Text style={styles.cardActionTitle}>Postular a un Viaje</Text>
+            <Text style={styles.cardActionSubtitle}>Solicita un cupo en un viaje disponible</Text>
+          </View>
+          <Icon name="chevron-right" size={22} color="#94a3b8" />
         </TouchableOpacity>
-      </ScrollView>
-    </View>
+
+        {/* ── Card: Historial ── */}
+        <TouchableOpacity
+          style={styles.actionCard}
+          onPress={() => navigation.navigate('PassengerTripHistoryScreen')}
+          activeOpacity={0.85}
+        >
+          <View style={[styles.iconBox, { backgroundColor: '#fefce8' }]}>
+            <Icon name="history" size={32} color="#ca8a04" />
+          </View>
+          <View style={styles.cardInfo}>
+            <Text style={styles.cardActionTitle}>Historial de Viajes</Text>
+            <Text style={styles.cardActionSubtitle}>Consulta los viajes que has tomado</Text>
+          </View>
+          <Icon name="chevron-right" size={22} color="#94a3b8" />
+        </TouchableOpacity>
+
+        {/* ── Rutas frecuentes ── */}
+        <Text style={[styles.sectionLabel, { marginTop: 8 }]}>Rutas frecuentes en Boyacá</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
+          {[
+            { origen: 'Tunja', destino: 'Duitama' },
+            { origen: 'Tunja', destino: 'Sogamoso' },
+            { origen: 'Tunja', destino: 'Paipa' },
+            { origen: 'Tunja', destino: 'Chiquinquirá' },
+            { origen: 'Duitama', destino: 'Sogamoso' },
+          ].map((ruta, i) => (
+            <TouchableOpacity
+              key={i}
+              style={styles.routeChip}
+              onPress={() => navigation.navigate('TripAviableScreen')}
+            >
+              <Icon name="map-marker-right" size={16} color="#1d4ed8" />
+              <Text style={styles.routeChipText}>{ruta.origen} → {ruta.destino}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        {/* ── Stats ── */}
+        <Text style={styles.sectionLabel}>Tu actividad</Text>
+        <View style={styles.statsRow}>
+          <View style={styles.statCard}>
+            <Text style={styles.statNumber}>12</Text>
+            <Text style={styles.statLabel}>Viajes{'\n'}tomados</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statNumber}>3</Text>
+            <Text style={styles.statLabel}>Postulaciones{'\n'}activas</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statNumber}>4.9</Text>
+            <Text style={styles.statLabel}>Calificación{'\n'}promedio</Text>
+          </View>
+        </View>
+
+      </View>
+    </ScrollView>
   );
 };
 
 export default HomePassengerScreen;
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: '#00205B',
+    paddingTop: 48,
+    paddingBottom: 32,
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  avatarCircle: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    backgroundColor: '#1e3a8a',
+    borderWidth: 3,
+    borderColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  avatarInitial: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  welcomeLabel: {
+    color: '#93c5fd',
+    fontSize: 13,
+  },
+  userName: {
+    color: '#fff',
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginTop: 2,
+  },
+  roleBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginTop: 6,
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 20,
+  },
+  roleText: {
+    color: '#bfdbfe',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  sectionLabel: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#6b7280',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    marginBottom: 12,
+  },
+  actionCard: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.07,
+    shadowRadius: 4,
+    elevation: 2,
+    gap: 14,
+  },
+  actionCardAccent: {
+    borderWidth: 1.5,
+    borderColor: '#bbf7d0',
+  },
+  iconBox: {
+    width: 56,
+    height: 56,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardInfo: {
+    flex: 1,
+  },
+  cardActionTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0f172a',
+  },
+  cardActionSubtitle: {
+    fontSize: 13,
+    color: '#6b7280',
+    marginTop: 2,
+  },
+  routeChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: '#eff6ff',
+    borderRadius: 20,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    marginRight: 8,
+    borderWidth: 1,
+    borderColor: '#bfdbfe',
+  },
+  routeChipText: {
+    color: '#1d4ed8',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  statsRow: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  statCard: {
+    flex: 1,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 14,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.06,
+    shadowRadius: 3,
+    elevation: 1,
+  },
+  statNumber: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#00205B',
+  },
+  statLabel: {
+    fontSize: 11,
+    color: '#6b7280',
+    textAlign: 'center',
+    marginTop: 4,
+    lineHeight: 16,
+  },
+});
