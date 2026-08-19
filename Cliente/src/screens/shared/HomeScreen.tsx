@@ -86,7 +86,6 @@ const HomeScreen = ({ navigation }: any) => {
           <View style={globalStyles.audienceContainer}>
             {[
               { icon: 'school',        label: 'Estudiantes de pregrado y posgrado' },
-              { icon: 'teach',         label: 'Docentes y catedráticos' },
               { icon: 'briefcase',     label: 'Personal administrativo' },
             ].map((a, i) => (
               <View key={i} style={globalStyles.audienceItem}>

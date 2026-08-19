@@ -4,7 +4,6 @@ import styles from '../../styles/styles';
 import { cerrarSesion, obtenerUsuarioDesdeToken, obtenerToken } from '../../auth/authService';
 import { getUserData } from '../../api/UserApi';
 import { Image } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function ProfileScreen({ navigation }: any) {
   const [user, setUser] = useState<any>(null);
@@ -73,7 +72,7 @@ export default function ProfileScreen({ navigation }: any) {
             style={styles.avatar}
           />
           <View style={styles.ratingBadge}>
-            <Icon name="star" size={14} color="#fbbf24" />
+            <Text style={{ color: '#fbbf24', fontSize: 14 }}>★</Text>
             <Text style={styles.ratingBadgeText}>4.99</Text>
           </View>
         </View>

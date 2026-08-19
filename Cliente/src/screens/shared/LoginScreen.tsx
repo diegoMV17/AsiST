@@ -51,7 +51,7 @@ export default function LoginScreen({ navigation }: any) {
     <View style={globalStyles.container}>
       <View style={globalStyles.formBox}>
         <Text style={globalStyles.title}>Iniciar Sesión</Text>
-        {error && <Text style={globalStyles.errorText}>{error}</Text>}
+        {!!error && <Text style={globalStyles.errorText}>{error}</Text>}
         <TextInput
           placeholder="Correo institucional"
           value={email}
