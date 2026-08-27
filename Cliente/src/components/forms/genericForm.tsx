@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -11,20 +11,25 @@ import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import globalStyles from '../../styles/styles';
 import { FieldConfig } from '../dynamic/types';
+import apiService from '../../services/apiService';
 
 // ============================================
 // PROPS DEL GENERIC FORM
 // ============================================
 interface GenericFormProps {
-  fields: FieldConfig[];                              // Configuración de campos
-  onSubmit: (values: Record<string, any>) => Promise<void>; // Callback al enviar
-  submitButtonText?: string;                          // Texto del botón
-  showCancelButton?: boolean;                         // Mostrar botón cancelar
-  onCancel?: () => void;                              // Callback cancelar
-  cancelButtonText?: string;                          // Texto botón cancelar
-  initialValues?: Record<string, any>;                // Valores iniciales
-  title?: string;                                     // Título del form
-  subtitle?: string;                                  // Subtítulo
+  fields: FieldConfig[];
+  onSubmit?: (values: Record<string, any>) => Promise<void>; // <- ahora opcional
+  submitButtonText?: string;
+  showCancelButton?: boolean;
+  onCancel?: () => void;
+  cancelButtonText?: string;
+  initialValues?: Record<string, any>;
+  loadInitialValues?: () => Promise<Record<string, any>>;   // NUEVO
+  apiPath?: string;                                          // NUEVO
+  recordId?: string;                                         // NUEVO
+  afterSubmit?: (result: any, values: Record<string, any>) => Promise<void> | void; // NUEVO
+  title?: string;
+  subtitle?: string;
 }
 
 // ============================================
@@ -38,14 +43,18 @@ export default function GenericForm({
   onCancel,
   cancelButtonText = 'Cancelar',
   initialValues = {},
+  loadInitialValues,   // NUEVO
+  apiPath,              // NUEVO
+  recordId,              // NUEVO
+  afterSubmit,           // NUEVO
   title,
   subtitle,
 }: GenericFormProps) {
-  
+
   // ============================================
   // ESTADOS
   // ============================================
-  
+
   // Estado de los valores del formulario
   const [formValues, setFormValues] = useState<Record<string, any>>(() => {
     const initial: Record<string, any> = {};
@@ -57,27 +66,66 @@ export default function GenericForm({
 
   // Estado de errores (por campo)
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  
+
   // Error general del formulario
   const [generalError, setGeneralError] = useState<string>('');
-  
+
   // Estado de loading
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   // Estados para el date picker (móvil)
   const [showDatePicker, setShowDatePicker] = useState<Record<string, boolean>>({});
   const [tempDates, setTempDates] = useState<Record<string, Date>>({});
-
+  const [dynamicOptions, setDynamicOptions] = useState<Record<string, { value: any; label: string }[]>>({});
+  const [isLoadingInitial, setIsLoadingInitial] = useState(false);
   // ============================================
   // FUNCIONES DE MANEJO
   // ============================================
-  
+
+  useEffect(() => {
+    if (!loadInitialValues) return;
+    setIsLoadingInitial(true);
+    loadInitialValues()
+      .then(data => setFormValues(prev => ({ ...prev, ...data })))
+      .catch(err => setGeneralError(err.message || 'Error al cargar el registro'))
+      .finally(() => setIsLoadingInitial(false));
+  }, []);
+
+
+  useEffect(() => {
+    fields.forEach(field => {
+      if (!field.dataSource) return;
+      const parentValue = field.dataSource.dependsOn
+        ? formValues[field.dataSource.dependsOn]
+        : undefined;
+
+      // si depende de otro campo y ese campo aún no tiene valor, no cargues todavía
+      if (field.dataSource.dependsOn && !parentValue) return;
+
+      field.dataSource.fetcher(parentValue).then(rawItems => {
+        const valueKey = field.dataSource!.valueKey || 'id';
+        const labelKey = field.dataSource!.labelKey || 'name';
+        const options = rawItems.map(item => ({
+          value: item[valueKey],
+          label: item[labelKey],
+        }));
+        setDynamicOptions(prev => ({ ...prev, [field.name]: options }));
+      });
+    });
+    // depende de una firma estable, no de la identidad del array
+  }, [
+  JSON.stringify(fields.map(f => f.name + ':' + (f.dataSource ? '1' : '0'))),
+  JSON.stringify(
+    fields.filter(f => f.dataSource?.dependsOn).map(f => formValues[f.dataSource!.dependsOn!])
+  ),
+]);
+
   /**
    * Actualiza el valor de un campo
    */
   const updateValue = (fieldName: string, value: any) => {
     setFormValues(prev => ({ ...prev, [fieldName]: value }));
-    
+
     // Limpiar error del campo cuando el usuario empieza a escribir
     if (fieldErrors[fieldName]) {
       setFieldErrors(prev => {
@@ -86,7 +134,7 @@ export default function GenericForm({
         return newErrors;
       });
     }
-    
+
     // Limpiar error general
     if (generalError) {
       setGeneralError('');
@@ -167,13 +215,21 @@ export default function GenericForm({
     return Object.keys(newErrors).length === 0;
   };
 
+  const resolvedSubmit = onSubmit ?? (async (values: Record<string, any>) => {
+    if (!apiPath) throw new Error('Falta onSubmit o apiPath en la configuración');
+    const result = recordId
+      ? await apiService.update(apiPath, recordId, values)
+      : await apiService.create(apiPath, values);
+    if (afterSubmit) await afterSubmit(result, values);
+  });
+
   /**
    * Maneja el envío del formulario
    */
   const handleSubmit = async () => {
     // Limpiar error general previo
     setGeneralError('');
-    
+
     // Validar formulario
     if (!validateForm()) {
       setGeneralError('Por favor, corrige los errores en el formulario');
@@ -181,9 +237,9 @@ export default function GenericForm({
     }
 
     setIsSubmitting(true);
-    
+
     try {
-      await onSubmit(formValues);
+      await resolvedSubmit(formValues);
     } catch (error: any) {
       // Mostrar error general si falla el submit
       setGeneralError(error.message || 'Error al enviar el formulario. Intenta nuevamente.');
@@ -196,7 +252,7 @@ export default function GenericForm({
   // ============================================
   // RENDERIZADO DE CAMPOS
   // ============================================
-  
+
   /**
    * Renderiza un campo según su tipo
    */
@@ -206,13 +262,14 @@ export default function GenericForm({
 
     // TIPO: MULTISELECT (botones de selección única)
     if (field.type === 'multiselect') {
+        const options = field.pickerOptions ?? dynamicOptions[field.name] ?? [];
       return (
         <View key={field.name} style={globalStyles.roleSelectorContainer}>
           {field.label && (
             <Text style={globalStyles.roleSelectorLabel}>{field.label}:</Text>
           )}
           <View style={globalStyles.roleSelectorRow}>
-            {field.pickerOptions?.map((option) => (
+            {options.map((option) => (
               <TouchableOpacity
                 key={option.value}
                 style={[
@@ -239,6 +296,7 @@ export default function GenericForm({
 
     // TIPO: PICKER (dropdown)
     if (field.type === 'picker') {
+        const options = field.pickerOptions ?? dynamicOptions[field.name] ?? [];
       return (
         <View key={field.name}>
           {field.label && <Text style={globalStyles.label}>{field.label}</Text>}
@@ -248,15 +306,15 @@ export default function GenericForm({
               onValueChange={(val) => updateValue(field.name, val)}
               style={globalStyles.picker}
             >
-              <Picker.Item 
-                label={field.placeholder || 'Selecciona una opción'} 
-                value="" 
+              <Picker.Item
+                label={field.placeholder || 'Selecciona una opción'}
+                value=""
               />
-              {field.pickerOptions?.map((option) => (
-                <Picker.Item 
-                  key={option.value} 
-                  label={option.label} 
-                  value={option.value} 
+              {options.map((option) => (
+                <Picker.Item
+                  key={option.value}
+                  label={option.label}
+                  value={option.value}
                 />
               ))}
             </Picker>
@@ -344,7 +402,7 @@ export default function GenericForm({
     }
 
     // TIPOS: TEXT, EMAIL, PASSWORD, NUMBER, PHONE (inputs estándar)
-   return (
+    return (
       <View key={field.name} style={{ width: '100%' }}>
         {field.label && <Text style={globalStyles.label}>{field.label}</Text>}
         <TextInput
@@ -355,13 +413,13 @@ export default function GenericForm({
           placeholderTextColor="#999"
           keyboardType={
             field.type === 'number' ? 'numeric' :
-            field.type === 'phone' ? 'phone-pad' :
-            field.type === 'email' ? 'email-address' :
-            'default'
+              field.type === 'phone' ? 'phone-pad' :
+                field.type === 'email' ? 'email-address' :
+                  'default'
           }
           autoCapitalize={
             field.type === 'email' ? 'none' :
-            field.autoCapitalize || 'sentences'
+              field.autoCapitalize || 'sentences'
           }
           secureTextEntry={field.type === 'password'}
         />
@@ -373,7 +431,7 @@ export default function GenericForm({
   // ============================================
   // RENDER PRINCIPAL
   // ============================================
-  
+
   return (
     <View style={globalStyles.formBox}>
       {/* Título y subtítulo */}

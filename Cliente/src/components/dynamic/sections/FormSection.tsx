@@ -20,7 +20,7 @@ interface FormSectionProps {
  */
 export default function FormSection({ config }: FormSectionProps) {
   return (
-    <ScrollView 
+    <ScrollView
       style={styles.scrollView}
       contentContainerStyle={styles.contentContainer}
       showsVerticalScrollIndicator={false}
@@ -29,6 +29,10 @@ export default function FormSection({ config }: FormSectionProps) {
       <GenericForm
         fields={config.fields}
         onSubmit={config.onSubmit}
+        apiPath={config.apiPath}
+        recordId={config.recordId}
+        afterSubmit={config.afterSubmit}
+        loadInitialValues={config.loadInitialValues}
         submitButtonText={config.submitButtonText}
         showCancelButton={config.showCancelButton}
         onCancel={config.onCancel}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, Alert, Platform } from 'react-native';
 import globalStyles from '../../styles/styles';
 import { getUserVehicles, removeVehicleFromUser } from '../../api/UserApi'; // Función para obtener vehículos del usuario
+import { apiService } from '../../services/apiService'; // Función para hacer peticiones HTTP
 import { deleteVehicle } from '../../api/VehicleApi'; // Funciones para eliminar vehículos
 import { obtenerToken, obtenerUsuarioDesdeToken } from '../../auth/authService'; // Funciones para obtener token y usuario
 
@@ -69,24 +70,22 @@ export default function UserVehiclesScreen({ navigation }: any) {
     }
   };
 
-const confirmDelete = (vehicleId: string) => {
-  if (Platform.OS === 'web') {
-    const confirm = window.confirm('¿Estás seguro de eliminar este vehículo?');
-    if (confirm) handleDeleteVehicle(vehicleId);
-  } else {
-    Alert.alert('Confirmación', '¿Estás seguro de eliminar este vehículo?', [
-      { text: 'Cancelar', style: 'cancel' },
-      { text: 'Eliminar', onPress: () => handleDeleteVehicle(vehicleId) },
-    ]);
-  }
-};
+  const confirmDelete = (vehicleId: string) => {
+    if (Platform.OS === 'web') {
+      const confirm = window.confirm('¿Estás seguro de eliminar este vehículo?');
+      if (confirm) handleDeleteVehicle(vehicleId);
+    } else {
+      Alert.alert('Confirmación', '¿Estás seguro de eliminar este vehículo?', [
+        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Eliminar', onPress: () => handleDeleteVehicle(vehicleId) },
+      ]);
+    }
+  };
 
   return (
     <View style={globalStyles.container}>
       <Text style={globalStyles.title}>Mis Vehículos</Text>
-
-      {error && <Text style={globalStyles.errorText}>{error}</Text>}
-
+      {!!error && <Text style={globalStyles.errorText}>{error}</Text>}
       {loading ? (
         <Text style={globalStyles.loadingText}>Cargando...</Text>
       ) : (

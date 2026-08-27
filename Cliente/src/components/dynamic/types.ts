@@ -3,7 +3,7 @@ import { JSX } from 'react';
 // ============================================
 // TIPOS DE CAMPOS DISPONIBLES
 // ============================================
-export type FieldType = 
+export type FieldType =
   | 'text'           // Input de texto normal
   | 'email'          // Input de email
   | 'password'       // Input de contraseña
@@ -22,22 +22,23 @@ export interface FieldConfig {
   name: string;                              // Nombre único del campo (key del objeto)
   label?: string;                            // Label arriba del campo (opcional)
   placeholder?: string;                      // Placeholder del input
-  
+
   // Tipo y comportamiento
   type: FieldType;                           // Tipo de campo
   required?: boolean;                        // Si es obligatorio
   defaultValue?: any;                        // Valor por defecto
-  
+
   // Validación
   validation?: (value: any) => string | null; // Función personalizada que retorna error o null
   minLength?: number;                        // Longitud mínima (para text)
   maxLength?: number;                        // Longitud máxima (para text)
   min?: number;                              // Valor mínimo (para number)
   max?: number;                              // Valor máximo (para number)
-  
+  dataSource?: FieldDataSource;
+
   // Opciones para picker y multiselect
   pickerOptions?: { label: string; value: any }[];
-  
+
   // Configuración adicional
   multiline?: boolean;                       // Para textarea
   keyboardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad'; // Tipo de teclado
@@ -48,7 +49,7 @@ export interface FieldConfig {
 // ============================================
 // TIPOS DE SECCIONES DISPONIBLES
 // ============================================
-export type SectionType = 
+export type SectionType =
   | 'form'           // Formulario
   | 'cardList'       // Lista de cards
   | 'cardGrid'       // Grid de cards
@@ -80,12 +81,16 @@ export interface FormSectionConfig extends BaseSection {
   title?: string;                                    // Título del formulario
   subtitle?: string;                                 // Subtítulo
   fields: FieldConfig[];                             // Array de campos
-  onSubmit: (values: Record<string, any>) => Promise<void>; // Callback al enviar
   submitButtonText?: string;                         // Texto del botón (default: 'Enviar')
   showCancelButton?: boolean;                        // Mostrar botón cancelar
   onCancel?: () => void;                             // Callback al cancelar
   cancelButtonText?: string;                         // Texto botón cancelar
   initialValues?: Record<string, any>;               // Valores iniciales del form
+  loadInitialValues?: () => Promise<Record<string, any>>; // carga async (ej: GET /vehicles/:id)
+  apiPath?: string;        // recurso REST, ej: 'vehicles'
+  recordId?: string;       // si existe → modo edición (PUT), si no → modo creación (POST)
+  afterSubmit?: (result: any, values: Record<string, any>) => Promise<void> | void;
+  onSubmit?: (values: Record<string, any>) => Promise<void>; // AHORA opcional
 }
 
 // ============================================
@@ -119,36 +124,36 @@ export interface BannerSectionConfig extends BaseSection {
 // ============================================
 // UNION DE TODAS LAS CONFIGURACIONES
 // ============================================
-export type SectionConfig = 
-  | FormSectionConfig 
-  | CardListSectionConfig 
+export type SectionConfig =
+  | FormSectionConfig
+  | CardListSectionConfig
   | BannerSectionConfig;
-  // Agregar más cuando implementes más secciones
+// Agregar más cuando implementes más secciones
 
 // ============================================
 // CONFIGURACIÓN COMPLETA DE UNA PANTALLA
 // ============================================
 export interface ScreenConfig {
   sections: SectionConfig[];                         // Array de secciones
-  
+
   // Header (opcional)
   header?: {
     title?: string;
     showBack?: boolean;
     onBack?: () => void;
   };
-  
+
   // Comportamiento de scroll
   scrollable?: boolean;                              // Si toda la pantalla es scrollable (default: false)
-  
+
   // Pull to refresh
   refreshable?: boolean;                             // Si permite refresh
   onRefresh?: () => Promise<void>;                   // Callback del refresh
-  
+
   // Loading
   loading?: boolean;                                 // Loading general de la pantalla
   loadingMessage?: string;                           // Mensaje durante loading
-  
+
   // Background
   backgroundColor?: string;                          // Color de fondo de la pantalla
 }
@@ -167,4 +172,10 @@ export interface ValidationResult {
 export interface SectionProps {
   config: SectionConfig;
   // Agregar más props comunes si es necesario
+}
+export interface FieldDataSource {
+  fetcher: (dependentValue?: any) => Promise<any[]>; // ej: () => getVehicleTypes()
+  valueKey?: string;   // default 'id'
+  labelKey?: string;   // default 'name'
+  dependsOn?: string;  // nombre de otro field, para dropdowns en cascada (como field.dependent en Vue)
 }
