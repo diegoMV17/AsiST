@@ -1,0 +1,70 @@
+# .gitignore raíz del monorepo AsiST (F0-T03).
+# Complementa los .gitignore de Cliente/ y Servidor/; las reglas aplican a todo el árbol.
+
+# Dependencias
+node_modules/
+.pnp
+.pnp.*
+
+# Compilados y salidas de build
+dist/
+build/
+out/
+web-build/
+*.tsbuildinfo
+
+# Variables de entorno y secretos (solo se versionan las plantillas sin valores reales)
+.env
+.env.*
+*.env
+!.env.example
+!**/.env.example
+!example.env
+!**/example.env
+*.pem
+*.key
+*.p8
+*.p12
+*.jks
+*.keystore
+*.mobileprovision
+google-services.json
+GoogleService-Info.plist
+
+# Expo y React Native
+.expo/
+.expo-shared/
+expo-env.d.ts
+.metro-health-check*
+.kotlin/
+*.orig.*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Pruebas y cobertura
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# Reportes de escaneos locales (pueden contener fragmentos de secretos)
+gitleaks-report*.json
+trivy-report*
+zap-report*
+
+# Editores y sistema operativo
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# Guía local de agentes (se mantiene fuera de git)
+/CLAUDE.md
