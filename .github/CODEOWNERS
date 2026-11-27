@@ -1,0 +1,18 @@
+# Propietarios de código de AsiST (F0-T04).
+# GitHub pide revisión de estos dueños en cada PR que toque las rutas indicadas.
+# La última coincidencia gana.
+
+# Por defecto, todo el repositorio.
+*                         @diegoMV17
+
+# Rutas sensibles: seguridad, autenticación, CI y configuración del repositorio.
+/.github/                 @diegoMV17
+/SECURITY.md              @diegoMV17
+/services/auth-service/   @diegoMV17
+/gateway/                 @diegoMV17
+/packages/security/       @diegoMV17
+/packages/contracts/      @diegoMV17
+/docs/security/           @diegoMV17
+/docs/threat-model/       @diegoMV17
+/docs/adr/                @diegoMV17
+/infra/                   @diegoMV17
