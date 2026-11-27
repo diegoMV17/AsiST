@@ -5,7 +5,7 @@ export class VehicleService {
     constructor(private vehicleRepository: VehicleRepository) { }
 
     async createVehicle(data: CreateVehicleDto): Promise<CreateVehicleDto> {
-        // Validar si la placa ya está registrada
+        // if the plate or serial number already exists, throw an error
         const existingVehicle = await this.vehicleRepository.findVehicleByPlaca(data.placa);
         const existingSerial = await this.vehicleRepository.findVehicleBySerialNumber(data.numeroSerie);
         if (existingVehicle || existingSerial) {
