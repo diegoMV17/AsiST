@@ -60,9 +60,7 @@ export class UserService {
 
   async getAllUsers(): Promise<CreateUsertDto[]> {
     try {
-      console.log('Calling getAllUsers from service');
       const users = await this.userRepository.getAllUsers();
-      console.log('Users returned from repository:', JSON.stringify(users, null, 2));
       return users;
     } catch (error) {
       console.error('Error in getAllUsers service:', error);

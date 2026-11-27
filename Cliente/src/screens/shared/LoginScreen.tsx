@@ -23,7 +23,6 @@ export default function LoginScreen({ navigation }: any) {
     }
     try {
       const data = await loginUser(email, password);
-      console.log('Login response del nuevo:', data);
       await guardarToken(data.token);
       if (!data?.user?.rol) {
         setError('Rol no definido en la respuesta');
