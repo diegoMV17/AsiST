@@ -1,0 +1,25 @@
+{
+  "$comment": "Riesgos aceptados de npm audit. Cada excepción necesita id (GHSA), package, reason y expires (AAAA-MM-DD). Al vencer deja de contar y el check vuelve a fallar. Agregar o extender una excepción requiere aprobación de diego en el PR.",
+  "packages": {
+    "Cliente": [
+      {
+        "id": "GHSA-5p2g-fcmc-qvqq",
+        "package": "image-size",
+        "reason": "Dependencia transitiva de metro (bundler de Expo), solo corre en la máquina del desarrollador al empaquetar imágenes propias; no llega al APK. `npm audit fix` no lo resuelve sin forzar versiones mayores de metro/expo.",
+        "expires": "2027-01-31"
+      },
+      {
+        "id": "GHSA-w3rx-r6r6-pgpr",
+        "package": "image-size",
+        "reason": "Igual que GHSA-5p2g-fcmc-qvqq: herramienta de build, entrada controlada por el equipo.",
+        "expires": "2027-01-31"
+      },
+      {
+        "id": "GHSA-mrhx-c7xc-m3w5",
+        "package": "zod",
+        "reason": "zod 3 transitivo de @expo/cli (herramienta de desarrollo, no se empaqueta en la app). Forzar zod 4 rompe @expo/cli. Los servicios nuevos usarán una versión corregida.",
+        "expires": "2027-01-31"
+      }
+    ]
+  }
+}

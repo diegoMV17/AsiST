@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  NODE_VERSION: "22"
+  # Paquetes heredados que aún no tienen lint ni pruebas. Desaparecen al cerrar la fase 3.
+  LEGACY_PACKAGES: "Servidor Cliente legacy/servidor"
+
+jobs:
+  discover:
+    name: Detectar paquetes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      packages: ${{ steps.find.outputs.packages }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - id: find
+        name: Buscar package-lock.json
+        # Un paquete es toda carpeta con package.json y package-lock.json propios.
+        # Cuando llegue el monorepo con workspaces, solo la raíz tendrá lockfile.
+        run: |
+          packages=$(find . -name package-lock.json -not -path '*/node_modules/*' -printf '%h\n' \
+            | sed 's#^\./##; s#^\.$#.#' | sort \
+            | jq -R . | jq -cs .)
+          echo "Paquetes: $packages"
+          echo "packages=$packages" >> "$GITHUB_OUTPUT"
+
+  quality:
+    name: Calidad (${{ matrix.package }})
+    needs: discover
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.discover.outputs.packages) }}
+    defaults:
+      run:
+        working-directory: ${{ matrix.package }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: ${{ matrix.package }}/package-lock.json
+      - name: Instalar dependencias
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Verificar scripts obligatorios
+        env:
+          PACKAGE: ${{ matrix.package }}
+        run: |
+          required="lint typecheck test"
+          case " $LEGACY_PACKAGES " in *" $PACKAGE "*) required="typecheck" ;; esac
+          missing=""
+          for script in $required; do
+            jq -e --arg s "$script" '.scripts[$s]' package.json > /dev/null || missing="$missing $script"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::$PACKAGE no define los scripts obligatorios:$missing"
+            exit 1
+          fi
+      - name: Lint
+        run: npm run lint --if-present
+      - name: Tipos
+        run: npm run typecheck
+      - name: Pruebas
+        run: npm test --if-present
+
+  audit:
+    name: npm audit (${{ matrix.package }})
+    needs: discover
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.discover.outputs.packages) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: npm audit --audit-level=high
+        run: node .github/scripts/npm-audit-gate.mjs "${{ matrix.package }}" .github/npm-audit-allowlist.json
