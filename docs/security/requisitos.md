@@ -78,7 +78,7 @@ Revisión rápida del servidor y el cliente en `develop` (commit `cbb4e88`). No 
 
 | ID | Requisito (resumen) | Aplica a | Cómo se cumple en AsiST | Fase | Estado |
 | --- | --- | --- | --- | --- | --- |
-| 2.1.1 | Contraseñas de al menos 12 caracteres | AUTH, APP | El plan fija 10 caracteres. **Queda como desviación hasta que diego decida** entre subir a 12 (cumple ASVS) o mantener 10 (ver sección 6) | F2-T05 | Desviación (por decidir) |
+| 2.1.1 | Contraseñas de al menos 12 caracteres | AUTH, APP | Mínimo 12 caracteres (decisión de diego del 2026-11-27; el plan decía 10) | F2-T05 | Pendiente |
 | 2.1.2 | Se permiten contraseñas de 64 caracteres o más; se rechazan las de más de 128 | AUTH, APP | Zod: `min` según 2.1.1, `max(128)` | F2-T05 | Pendiente |
 | 2.1.3 | No se trunca la contraseña | AUTH | argon2id recibe la contraseña completa; prueba con 128 caracteres | F2-T03 | Pendiente |
 | 2.1.4 | Se acepta cualquier carácter Unicode imprimible | AUTH | Sin listas de caracteres permitidos; normalización NFKC antes del hash | F2-T05 | Pendiente |
@@ -297,7 +297,7 @@ Requisitos adicionales de API (OWASP API Security Top 10, 2023) que ASVS 4.0.3 n
 
 ## 6. Decisiones que necesitan a diego
 
-1. **Longitud mínima de contraseña (2.1.1).** ASVS nivel 2 pide 12 caracteres y el plan fija 10. Recomendación: subir a 12, porque es un cambio de una constante y deja el requisito cumplido. Si se mantiene 10, el requisito queda como desviación aceptada.
+1. ~~**Longitud mínima de contraseña (2.1.1).**~~ Decidido el 2026-11-27: mínimo 12 caracteres.
 2. **Recuperación de contraseña sin correo (2.5.6).** Recomendación: recuperación asistida por un admin con código de un solo uso entregado en persona, que revoca todas las sesiones. Alternativa: no ofrecer recuperación hasta tener correo.
 3. **MFA para cuentas admin (4.3.1).** Recomendación: TOTP (aplicación autenticadora) solo para el rol admin; no necesita proveedor externo. Alternativa: diferirlo y aceptar el riesgo.
 4. **Derechos de habeas data (8.3.2).** Recomendación: agregar una tarea en la fase 3 para exportar y borrar la cuenta, con un evento `user.deleted`.
