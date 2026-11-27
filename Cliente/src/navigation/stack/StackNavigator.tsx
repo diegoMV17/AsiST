@@ -31,7 +31,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+  <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
       {/* Si quiere que cuando recargue permanezca el usuario en sesion, cambiar a : 
       <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>  */}
       <Stack.Screen name="Splash" component={SplashScreen} />

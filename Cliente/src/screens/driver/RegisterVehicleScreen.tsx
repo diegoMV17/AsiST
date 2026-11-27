@@ -1,16 +1,13 @@
-// src/screens/driver/RegisterVehicleScreen.tsx (NUEVA VERSIÓN)
-
 import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { DynamicScreen } from '../../components/dynamic';
 import { ScreenConfig } from '../../components/dynamic/types';
 import { getVehicleFormFields } from '../../config/vehicleFormConfig';
-import { createVehicle } from '../../api/VehicleApi';
 import { relateVehicleToUser } from '../../api/UserApi';
 import { obtenerToken, obtenerUsuarioDesdeToken } from '../../auth/authService';
 
 export default function RegisterVehicleScreen({ navigation }: any) {
-  
+
   // ============================================
   // ESTADOS
   // ============================================
@@ -19,7 +16,7 @@ export default function RegisterVehicleScreen({ navigation }: any) {
   const [error, setError] = useState<string>('');
 
   // ============================================
-  // CARGAR DATOS INICIALES
+  // CARGAR DATOS INICIALES (usuario autenticado)
   // ============================================
   useEffect(() => {
     const loadUserData = async () => {
@@ -51,49 +48,31 @@ export default function RegisterVehicleScreen({ navigation }: any) {
   // ============================================
   // HANDLERS
   // ============================================
-  
+
   /**
-   * Maneja el envío del formulario
+   * Se ejecuta DESPUÉS de que GenericForm crea el vehículo
+   * (POST automático a apiPath="vehicles" vía apiService.create).
+   * "newVehicle" es el resultado que devuelve el backend, incluyendo _id.
    */
-  const handleSubmit = async (values: Record<string, any>) => {
+  const handleAfterSubmit = async (newVehicle: any, values: Record<string, any>) => {
     try {
-      // 1. Crear el vehículo en la base de datos
-      const newVehicle = await createVehicle(
-        values.placa,
-        values.marca,
-        values.numeroSerie,
-        values.soat,
-        values.modelo,
-        values.tipo,
-        values.color,
-        Number(values.capacidad)
-      );
+      // Relacionar el vehículo recién creado con el usuario autenticado
+      await relateVehicleToUser(userId, newVehicle._id);
 
-      const vehicleId = newVehicle._id;
+      // Navegar a la lista
+      navigation.navigate('ListarVehiculos');
 
-      // 2. Relacionar el vehículo con el usuario autenticado
-      const token = await obtenerToken();
-      if (!token) {
-        throw new Error('Token no encontrado');
-      }
-
-      await relateVehicleToUser(userId, vehicleId, token);
-
-      // 3. Mostrar mensaje de éxito
-     navigation.navigate('ListarVehiculos');
-      
-      // 4. Mostrar mensaje de éxito (después de navegar)
+      // Mostrar mensaje de éxito (después de navegar)
       setTimeout(() => {
         Alert.alert(
-          'Éxito', 
+          'Éxito',
           `Vehículo ${values.placa} registrado y asociado correctamente`
         );
       }, 300);
-
     } catch (err: any) {
-      console.error('Error al registrar vehículo:', err);
-      // El error será mostrado por el GenericForm
-      throw new Error(err.message || 'Error al registrar o asociar el vehículo');
+      console.error('Error al asociar vehículo:', err);
+      // Este throw lo captura GenericForm y lo muestra como generalError
+      throw new Error(err.message || 'El vehículo se creó, pero no se pudo asociar al usuario');
     }
   };
 
@@ -107,20 +86,19 @@ export default function RegisterVehicleScreen({ navigation }: any) {
   // ============================================
   // CONFIGURACIÓN DE LA PANTALLA
   // ============================================
-  
+
   const screenConfig: ScreenConfig = {
-    // Loading general mientras carga los datos del usuario
     loading: loading,
     loadingMessage: 'Cargando información...',
-    
-    // Secciones de la pantalla
+
     sections: [
       {
         id: 'vehicle-form',
         type: 'form',
         title: 'Registro de Vehículo',
         fields: getVehicleFormFields(),
-        onSubmit: handleSubmit,
+        apiPath: 'vehicles',            // GenericForm hace el POST automático
+        afterSubmit: handleAfterSubmit, // lógica de negocio post-creación
         submitButtonText: 'Registrar Vehículo',
         showCancelButton: true,
         onCancel: handleCancel,
@@ -132,42 +110,6 @@ export default function RegisterVehicleScreen({ navigation }: any) {
   // ============================================
   // RENDER
   // ============================================
-  
+
   return <DynamicScreen config={screenConfig} />;
 }
-
-// ============================================
-// NOTAS DE USO
-// ============================================
-/*
-  COMPARACIÓN: Antes vs Después
-  
-  ANTES (RegisterVehicleScreen.tsx original):
-  - 150+ líneas de código
-  - 9 estados individuales (useState para cada campo)
-  - Lógica de validación mezclada con UI
-  - JSX extenso con todos los inputs
-  - Difícil de mantener y reutilizar
-  
-  DESPUÉS (esta versión):
-  - ~120 líneas (incluyendo comentarios)
-  - 3 estados simples (userId, loading, error)
-  - Lógica de negocio separada de UI
-  - Configuración declarativa
-  - Fácil de mantener y reutilizar
-  
-  VENTAJAS:
-  ✅ Más limpio y legible
-  ✅ Validaciones automáticas
-  ✅ Configuración reutilizable
-  ✅ Manejo de errores consistente
-  ✅ Loading states integrados
-  ✅ Fácil de testear
-  ✅ Escalable para agregar más campos
-  
-  CÓMO USAR EN OTRAS PANTALLAS:
-  1. Crear configuración de campos
-  2. Definir handler de submit
-  3. Crear ScreenConfig
-  4. Return <DynamicScreen config={screenConfig} />
-*/
